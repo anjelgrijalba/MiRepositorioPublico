@@ -62,6 +62,7 @@ Partial Class EMPHORAS
         Me.FlowLayoutPanel1 = New System.Windows.Forms.FlowLayoutPanel()
         Me.FlowLayoutPanel2 = New System.Windows.Forms.FlowLayoutPanel()
         Me.lbProyectos = New System.Windows.Forms.Label()
+        Me.Label1 = New System.Windows.Forms.Label()
         Me.Picture2.SuspendLayout()
         CType(Me.EMPLEADOSWEBBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PersonBSEDataSetWeb, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -394,6 +395,15 @@ Partial Class EMPHORAS
         Me.lbProyectos.TabIndex = 0
         Me.lbProyectos.Text = "PROYECTOS"
         '
+        'Label1
+        '
+        Me.Label1.AutoSize = True
+        Me.Label1.Location = New System.Drawing.Point(3, 0)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(39, 13)
+        Me.Label1.TabIndex = 0
+        Me.Label1.Text = "Label1"
+        '
         'EMPHORAS
         '
         Me.ClientSize = New System.Drawing.Size(906, 483)
@@ -464,5 +474,6 @@ Partial Class EMPHORAS
     Friend WithEvents FlowLayoutPanel1 As FlowLayoutPanel
     Friend WithEvents FlowLayoutPanel2 As FlowLayoutPanel
     Friend WithEvents lbProyectos As Label
+    Friend WithEvents Label1 As Label
     'Friend WithEvents txtDia As TextBox
 End Class

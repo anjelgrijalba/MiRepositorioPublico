@@ -759,6 +759,7 @@ Module Globales
         For n = 0 To 9
             txtTH(n) = New TextBox()
             txtTH(n).Text = n
+
         Next
     End Sub
 

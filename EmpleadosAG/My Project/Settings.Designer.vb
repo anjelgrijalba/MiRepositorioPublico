@@ -67,7 +67,7 @@ Namespace My
         <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.Configuration.SpecialSettingAttribute(Global.System.Configuration.SpecialSetting.ConnectionString),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("Data Source=LAN309\SQLEXPRESS;Initial Catalog=PersonBSE;Integrated Security=True")>  _
+         Global.System.Configuration.DefaultSettingValueAttribute("Data Source=LAN265\SQLEXPRESS;Initial Catalog=PersonBSE;Integrated Security=True")>  _
         Public ReadOnly Property PersonBSEConnectionString1() As String
             Get
                 Return CType(Me("PersonBSEConnectionString1"),String)

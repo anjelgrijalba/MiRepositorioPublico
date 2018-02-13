@@ -106,7 +106,14 @@ Public Class EMPHORAS
         Me.Close()
 
     End Sub
+    Public Sub CreartxtTH()
 
+        For n = 0 To 9
+            txtTH(n) = New TextBox()
+            txtTH(n).Text = n
+
+        Next
+    End Sub
     Private Sub bChgBD_Click(sender As Object, e As EventArgs) Handles bChgBD.Click
         gReloj = 0
         If sPER = "" Then
@@ -909,36 +916,36 @@ Public Class EMPHORAS
     End Function
 
     Public Function MesCerradoWEB(mes As Integer, año As Integer, sUbi As String) As Boolean
-        Dim rsA As New ADODB.Recordset
-        Dim sSql As String
-        Dim sMes As String
+        'Dim rsA As New ADODB.Recordset
+        'Dim sSql As String
+        'Dim sMes As String
 
-        If MesCerrado(mes, año) Then
-            MesCerradoWEB = True
-            Exit Function
-        End If
+        'If MesCerrado(mes, año) Then
+        '    MesCerradoWEB = True
+        '    Exit Function
+        'End If
 
-        sMes = "[" & CStr(mes) & "]"
-        sSql = "select " & sMes & " from control_mes_ubi where ubicacion='" & sUbi & "' and año=" & CStr(año)
-        rsA.CursorLocation = ADODB.CursorLocationEnum.adUseClient
-        rsA.Open(sSql, dbHoras, ADODB.CursorTypeEnum.adOpenStatic)
-        If rsA.RecordCount <> 0 Then
-            MesCerradoWEB = True
+        'sMes = "[" & CStr(mes) & "]"
+        'sSql = "select " & sMes & " from control_mes_ubi where ubicacion='" & sUbi & "' and año=" & CStr(año)
+        'rsA.CursorLocation = ADODB.CursorLocationEnum.adUseClient
+        'rsA.Open(sSql, dbHoras, ADODB.CursorTypeEnum.adOpenStatic)
+        'If rsA.RecordCount <> 0 Then
+        '    MesCerradoWEB = True
 
-            'MesCerradoWEB = rsA(0)
-        Else
-            MesCerradoWEB = False
-            sSql = "insert into control_mes_ubi values ('" & sUbi & "'," & CStr(año) & ",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0)"
-            'dbHoras.ExecuteNonQuery  sSql
+        '    'MesCerradoWEB = rsA(0)
+        'Else
+        '    MesCerradoWEB = False
+        '    sSql = "insert into control_mes_ubi values ('" & sUbi & "'," & CStr(año) & ",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0)"
+        '    'dbHoras.ExecuteNonQuery  sSql
 
-            ' Using connection As New SqlConnection(connectionString)
-            Dim command As New SqlCommand(sSql)
-            command.Connection.Open()
-            command.ExecuteNonQuery()
+        '    ' Using connection As New SqlConnection(connectionString)
+        '    Dim command As New SqlCommand(sSql)
+        '    command.Connection.Open()
+        '    command.ExecuteNonQuery()
 
 
-        End If
-        rsA.Close()
+        'End If
+        'rsA.Close()
     End Function
 
     'Private Sub EMPHORAS_Load(sender As Object, e As EventArgs)
@@ -1272,5 +1279,8 @@ fallo:
         End Using
     End Function
 
+    Private Sub TableLayoutPanel1_Paint(sender As Object, e As PaintEventArgs)
+
+    End Sub
 End Class
 
