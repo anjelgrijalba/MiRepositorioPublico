@@ -18,26 +18,138 @@ Public Class EMPHORAS
     Dim dAño As Integer
     Dim ColorAnt As Color
 
-    Const NUMFIL = 13
+    Const NUMFIL = 7
 
     Dim txtDia(6) As TextBox
     Public Sub CreartxtDia()
-
+        Dim lbProyectos = New Label
+        lbProyectos.Text = "PROYECTOS"
+        TableLayoutPanel1.Controls.Add(lbProyectos, 0, 0)
         For n = 0 To 6
             txtDia(n) = New TextBox()
-            'txtDia(n).Text = n
-            FlowLayoutPanel1.Controls.Add(txtDia(n))
+            If (n >= 0 And n <= 4) Then
+                txtDia(n).BackColor = G_AMARILLO_CLARITO
+            ElseIf (n >= 5 & n <= 6) Then
+                txtDia(n).BackColor = G_VERDE_CLARITO
+            End If
+            TableLayoutPanel1.Controls.Add(txtDia(n), n + 1, 0)
+            TableLayoutPanel1.SetColumnSpan(txtDia(n), 2)
         Next
     End Sub
-
     Public cbProy(13) As ComboBox
-
-    Public Sub CrearCbProy()
-
-        For n = 0 To 13
-            cbProy(n) = New ComboBox()
-            cbProy(n).Text = n
-            FlowLayoutPanel2.Controls.Add(cbProy(n))
+    'Public Sub CrearCbProy()
+    '    For n = 0 To 13
+    '        cbProy(n) = New ComboBox()
+    '        'cbProy(n).Text = n
+    '        FlowLayoutPanel2.Controls.Add(cbProy(n))
+    '    Next
+    'End Sub
+    Public txtH1(9) As TextBox
+    Public txtE1(9) As TextBox
+    Public Sub CreartxtH1()
+        Dim c As Integer
+        For c = 1 To 9
+            txtH1(c) = New TextBox()
+            txtH1(c).Width = 45
+            txtH1(c).Text = "txtH1"
+            TableLayoutPanel1.Controls.Add(txtH1(c), 1, c)
+            txtE1(c) = New TextBox()
+            txtE1(c).Width = 45
+            txtE1(c).Text = "txtE1"
+            TableLayoutPanel1.Controls.Add(txtE1(c), 2, c)
+            cbProy(c) = New ComboBox()
+            'cbProy(n).Text = n
+            TableLayoutPanel1.Controls.Add(cbProy(c), 0, c)
+        Next
+    End Sub
+    Public txtH2(9) As TextBox
+    Public txtE2(9) As TextBox
+    Public Sub CreartxtH2()
+        Dim c As Integer
+        For c = 1 To 9
+            txtH2(c) = New TextBox()
+            txtH2(c).Width = 45
+            txtH2(c).Text = "txtH2"
+            TableLayoutPanel1.Controls.Add(txtH2(c), 3, c)
+            txtE2(c) = New TextBox()
+            txtE2(c).Width = 45
+            txtE2(c).Text = "txtE2"
+            TableLayoutPanel1.Controls.Add(txtE2(c), 4, c)
+        Next
+    End Sub
+    Public txtH3(9) As TextBox
+    Public txtE3(9) As TextBox
+    Public Sub CreartxtH3()
+        Dim c As Integer
+        For c = 1 To 9
+            txtH3(c) = New TextBox()
+            txtH3(c).Width = 45
+            txtH3(c).Text = "txtH3"
+            TableLayoutPanel1.Controls.Add(txtH3(c), 4, c)
+            txtE3(c) = New TextBox()
+            txtE3(c).Width = 45
+            txtE3(c).Text = "txtE3"
+            TableLayoutPanel1.Controls.Add(txtE3(c), 5, c)
+        Next
+    End Sub
+    Public txtH4(9) As TextBox
+    Public txtE4(9) As TextBox
+    Public Sub CreartxtH4()
+        Dim c As Integer
+        For c = 1 To 9
+            txtH4(c) = New TextBox()
+            txtH4(c).Width = 45
+            txtH4(c).Text = "txtH4"
+            TableLayoutPanel1.Controls.Add(txtH4(c), 6, c)
+            txtE4(c) = New TextBox()
+            txtE4(c).Width = 45
+            txtE4(c).Text = "txtE4"
+            TableLayoutPanel1.Controls.Add(txtE4(c), 7, c)
+        Next
+    End Sub
+    Public txtH5(9) As TextBox
+    Public txtE5(9) As TextBox
+    Public Sub CreartxtH5()
+        Dim c As Integer
+        For c = 1 To 9
+            txtH5(c) = New TextBox()
+            txtH5(c).Width = 45
+            txtH5(c).Text = "txtH5"
+            TableLayoutPanel1.Controls.Add(txtH5(c), 8, c)
+            txtE5(c) = New TextBox()
+            txtE5(c).Width = 45
+            txtE5(c).Text = "txtE5"
+            TableLayoutPanel1.Controls.Add(txtE5(c), 9, c)
+        Next
+    End Sub
+    Public txtH6(9) As TextBox
+    Public txtE6(9) As TextBox
+    Public Sub CreartxtH6()
+        Dim c As Integer
+        For c = 1 To 9
+            txtH6(c) = New TextBox()
+            txtH6(c).Width = 45
+            txtH6(c).Text = "txtH6"
+            TableLayoutPanel1.Controls.Add(txtH6(c), 10, c)
+            txtE6(c) = New TextBox()
+            txtE6(c).Width = 45
+            txtE6(c).Text = "txtE6"
+            TableLayoutPanel1.Controls.Add(txtE6(c), 11, c)
+        Next
+    End Sub
+    Public txtH7(9) As TextBox
+    Public txtE7(9) As TextBox
+    Public Sub CreartxtH7()
+        Dim c As Integer
+        For c = 1 To 9
+            txtH7(c) = New TextBox()
+            txtH7(c).Width = 45
+            txtH7(c).Text = "txtH7"
+            TableLayoutPanel1.Controls.Add(txtH7(c), 12, c)
+            txtE7(c) = New TextBox()
+            txtE7(c).Width = 45
+            txtE7(c).Text = "txtE7"
+            TableLayoutPanel1.Controls.Add(txtE7(c), 13, c)
         Next
     End Sub
 
@@ -72,17 +184,28 @@ Public Class EMPHORAS
 
 
         CrearLabel()
-        CrearCbProy()
+        'CrearCbProy()
         CreartxtTHP()
         CreartxtTEP()
         CreartxtTH()
         CreartxtTE()
         CreartxtDia()
+        CreartxtH1()
+        CreartxtH2()
+        CreartxtH3()
+        CreartxtH4()
+        CreartxtH5()
+        CreartxtH6()
+        CreartxtH7()
 
         RellenarAño(cbAño)
         RellenarMes(cbMes)
-        'ListaProyectos()
+        ListaProyectos(0)
         'ListaEmpleados(cbEmp, "")
+        cbEmp.SelectedValue = -1
+        cbEmp.SelectedText = ""
+        cbId.Text = ""
+
         cbAño.Text = Year(Now)
         cbMes.SelectedIndex = Month(Now) - 1
 
@@ -139,13 +262,18 @@ Public Class EMPHORAS
         cbMes_SelectedIndexChanged()
     End Sub
 
-    Private Sub cbAño_Click()
+    'Private Sub cbAño_Click()
+    '    cbMes_SelectedIndexChanged()
+    'End Sub
+
+    Private Sub cbAño_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cbAño.SelectedIndexChanged
         cbMes_SelectedIndexChanged()
     End Sub
 
     Private Sub cbEmp_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cbEmp.SelectedIndexChanged
         LimpiarDatos()
-        EmpId = cbEmp.SelectedIndex
+
+        EmpId = CType(cbEmp.SelectedValue, Integer)
 
         DatosOtroUsuario(EmpId, EmpNom, EmpCalAct, EmpVac, EmpUbi)
 
@@ -762,23 +890,85 @@ Public Class EMPHORAS
     End Function
 
     Private Sub ListaProyectos(id As Integer)
-        'Dim dr As IDataReader
-        Dim a As Integer
+        Dim con As IDbConnection = New SqlConnection(gConexion)
+        Using (con)
 
-        If Proyectos(id) Then
-            For a = 0 To NUMFIL
-                CargarProy(cbProy(a), id)
-            Next
-            'CargarIDProy(cbProyVal, id)
-        End If
+            con.Open()
+
+            Dim com As IDbCommand = con.CreateCommand()
+
+            com.CommandText = "SELECT PROYECTOS.*, ACTIVO" &
+            " FROM PROYECTOS INNER JOIN PROYECTOS_EMPLEADOS ON PROYECTOS.Código_Proyecto = PROYECTOS_EMPLEADOS.CODIGO_PROYECTO " &
+            " WHERE PROYECTOS_EMPLEADOS.MATRICULA=" & CStr(id) & " order by fecha_fin, activo, código_proyecto;"
+
+            Dim dr As IDataReader = com.ExecuteReader()
+
+            'Dim dr As IDataReader
+            Dim a As Integer
+
+            If Proyectos(dr) Then
+                For a = 1 To NUMFIL
+                    CargarProy(cbProy(a), dr)
+                Next
+                'CargarIDProy(cbProyVal, dr)
+            End If
+        End Using
+    End Sub
+    Public Sub CargarProy(ByRef Lista As ComboBox, dr As IDataReader)
+
+        Dim con As IDbConnection = New SqlConnection(gConexion)
+        Dim i As Integer = 0
+
+        Lista.Items.Clear()
+        'Lista.Items.Add("<sin proyecto>")
+        Lista.Items.Add("")
+
+
+        While (dr.Read())
+
+            ' cbProy(i).Text = dr("Nombre_proyecto")
+            If dr("FECHA_FIN") <> "" Or dr("FECHA_FIN").DBNull Then
+                Lista.Items.Add(dr("código_proyecto").ToString() + "| * " + dr("nombre_proyecto").ToString) 'proyecto terminado
+                'esto está deprecated
+                'ElseIf rsP("ACTIVO")  Then
+                'Lista.Items.Add(rsP("código_proyecto").ToString() + "| ** " + rsP("nombre_proyecto").ToString())
+            Else 'proyecto activo
+                Lista.Items.Add(dr("código_proyecto").ToString() + "| " + dr("nombre_proyecto").ToString())
+            End If
+
+        End While
+        Lista.SelectedIndex = 0
+
+    End Sub
+
+    Public Sub CargarIDProy(ByVal Lista As ComboBox, ByVal rsP As ADODB.Recordset)
+        Dim i As Integer
+
+        rsP.MoveFirst()
+        Lista.Items.Clear()
+        Lista.Items.Add("")
+
+        For i = 0 To rsP.RecordCount - 1
+            Lista.Items.Add(rsP("código_proyecto"))
+            rsP.MoveNext()
+        Next
+        Lista.SelectedIndex = 0
     End Sub
 
     Private Sub LimpiarDatos()
         Dim i As Integer
         Dim oObj As Control
         Dim tooltip1 As New ToolTip()
+        Dim dia As TextBox
+        For Each dia In txtDia
+            If IsNothing(dia) Then
+                dia.Text = ""
+            End If
+        Next
 
         For Each oObj In Me.Controls
+
+
             If Mid(oObj.Name, 1, 3) = "txt" Then
                 oObj.Text = ""
                 'oObj.Alignment = 1
@@ -788,11 +978,12 @@ Public Class EMPHORAS
                 oObj.Tag = ""
                 tooltip1.SetToolTip(oObj, "")
             End If
+
             If Mid(oObj.Name, 1, 2) = "lb" Then
-                oObj.Text() = ""
+                oObj.Text = ""
             End If
             If Mid(oObj.Name, 1, 3) = "cbP" Then
-                ' oObj.ListIndex = -1
+                'oObj.ListIndex = -1
             End If
         Next
     End Sub
@@ -897,22 +1088,33 @@ Public Class EMPHORAS
     End Function
 
     Public Function CalendarioEmpleadoAño(id As Integer, dAño As Integer) As String
-        Dim rsA As New ADODB.Recordset
-        Dim sSql As String
+        Dim con As IDbConnection
+        con = New SqlConnection(gConexion)
 
-        sSql = "select * from vacaciones_hist where matricula=" & CStr(id) & " and año=" & CStr(dAño)
-        rsA.CursorLocation = ADODB.CursorLocationEnum.adUseClient
-        rsA.Open(sSql, dbHoras, ADODB.CursorTypeEnum.adOpenStatic)
-        If rsA.RecordCount <> 0 Then
-            If IsDBNull(rsA(3)) Then
-                CalendarioEmpleadoAño = "GEN"
-            Else
-                CalendarioEmpleadoAño = rsA(3)
-            End If
-        Else
+        Using (con)
+
+            con.Open()
+
+            Dim com As IDbCommand = con.CreateCommand()
+
+            com.CommandText = "select * from vacaciones_hist where matricula=" & CStr(id) & " and año=" & CStr(dAño)
+
+            Dim dr As IDataReader = com.ExecuteReader()
             CalendarioEmpleadoAño = "GEN"
-        End If
-        rsA.Close()
+            While (dr.Read())
+                If IsDBNull(dr(3)) Then
+                    CalendarioEmpleadoAño = "GEN"
+                Else
+                    CalendarioEmpleadoAño = dr(3)
+                End If
+
+            End While
+            dr.Dispose()
+            dr.Close()
+
+        End Using
+
+
     End Function
 
     Public Function MesCerradoWEB(mes As Integer, año As Integer, sUbi As String) As Boolean
@@ -1139,55 +1341,7 @@ fallo:
         End If
     End Function
 
-    Public Sub CargarProy(ByVal Lista As ComboBox, ByVal id As Integer)
 
-        Dim con As IDbConnection = New SqlConnection(gConexion)
-        Dim i As Integer = 0
-
-        Lista.Items.Clear()
-        Lista.Items.Add("<sin proyecto>")
-        Using (con)
-
-            con.Open()
-
-            Dim com As IDbCommand = con.CreateCommand()
-
-            com.CommandText = "SELECT PROYECTOS.*, ACTIVO" &
-            " FROM PROYECTOS INNER JOIN PROYECTOS_EMPLEADOS ON PROYECTOS.Código_Proyecto = PROYECTOS_EMPLEADOS.CODIGO_PROYECTO " &
-            " WHERE PROYECTOS_EMPLEADOS.MATRICULA=" & CStr(id) & " order by fecha_fin, activo, código_proyecto;"
-
-            Dim dr As IDataReader = com.ExecuteReader()
-
-            While (dr.Read())
-
-                cbProy(i).Text = dr("Nombre_proyecto")
-                If dr("FECHA_FIN") <> "" Then
-                    Lista.Items.Add(dr("código_proyecto").ToString() + "| * " + dr("nombre_proyecto").ToString)
-                    'esto está deprecated
-                    'ElseIf rsP("ACTIVO")  Then
-                    'Lista.Items.Add(rsP("código_proyecto").ToString() + "| ** " + rsP("nombre_proyecto").ToString())
-                Else
-                    Lista.Items.Add(dr("código_proyecto").ToString() + "| " + dr("nombre_proyecto").ToString())
-                End If
-
-            End While
-            Lista.SelectedIndex = 0
-        End Using
-    End Sub
-
-    Public Sub CargarIDProy(ByVal Lista As ComboBox, ByVal rsP As ADODB.Recordset)
-        Dim i As Integer
-
-        rsP.MoveFirst()
-        Lista.Items.Clear()
-        Lista.Items.Add("")
-
-        For i = 0 To rsP.RecordCount - 1
-            Lista.Items.Add(rsP("código_proyecto"))
-            rsP.MoveNext()
-        Next
-        Lista.SelectedIndex = 0
-    End Sub
 
     Public Function BuscarEmpleado(id As Integer, combo As ComboBox) As Boolean
         Dim i As Integer
@@ -1255,32 +1409,20 @@ fallo:
         End If
     End Function
 
-    Public Function Proyectos(id As Integer) As Boolean
+    Public Function Proyectos(dr As IDataReader) As Boolean
 
-        Dim con As IDbConnection = New SqlConnection(gConexion)
-        Using (con)
+        Proyectos = False
 
-            con.Open()
+        While (dr.Read())
+            Proyectos = True
+        End While
 
-            Dim com As IDbCommand = con.CreateCommand()
-
-            com.CommandText = "SELECT PROYECTOS.*, ACTIVO" &
-            " FROM PROYECTOS INNER JOIN PROYECTOS_EMPLEADOS ON PROYECTOS.Código_Proyecto = PROYECTOS_EMPLEADOS.CODIGO_PROYECTO " &
-            " WHERE PROYECTOS_EMPLEADOS.MATRICULA=" & CStr(id) & " order by fecha_fin, activo, código_proyecto;"
-
-            Dim dr As IDataReader = com.ExecuteReader()
-
-            Proyectos = False
-
-            While (dr.Read())
-                Proyectos = True
-            End While
-
-        End Using
     End Function
 
-    Private Sub TableLayoutPanel1_Paint(sender As Object, e As PaintEventArgs)
 
-    End Sub
+
+    'Private Sub TableLayoutPanel1_Paint(sender As Object, e As PaintEventArgs)
+
+    'End Sub
 End Class
 

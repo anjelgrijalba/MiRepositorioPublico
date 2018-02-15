@@ -59,10 +59,8 @@ Partial Class EMPHORAS
         Me.txBD = New System.Windows.Forms.TextBox()
         Me.EMPLEADOSTableAdapter = New EmpleadosAG.PersonBSEDataSetTableAdapters.EMPLEADOSTableAdapter()
         Me.EMPLEADOS_WEBTableAdapter = New EmpleadosAG.PersonBSEDataSetWebTableAdapters.EMPLEADOS_WEBTableAdapter()
-        Me.FlowLayoutPanel1 = New System.Windows.Forms.FlowLayoutPanel()
-        Me.FlowLayoutPanel2 = New System.Windows.Forms.FlowLayoutPanel()
-        Me.lbProyectos = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
+        Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
         Me.Picture2.SuspendLayout()
         CType(Me.EMPLEADOSWEBBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PersonBSEDataSetWeb, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -70,7 +68,6 @@ Partial Class EMPHORAS
         CType(Me.PersonBSEDataSet, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.EMPLEADOSBindingSource1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.picBoton.SuspendLayout()
-        Me.FlowLayoutPanel2.SuspendLayout()
         Me.SuspendLayout()
         '
         'Picture2
@@ -371,30 +368,6 @@ Partial Class EMPHORAS
         '
         Me.EMPLEADOS_WEBTableAdapter.ClearBeforeFill = True
         '
-        'FlowLayoutPanel1
-        '
-        Me.FlowLayoutPanel1.Location = New System.Drawing.Point(139, 134)
-        Me.FlowLayoutPanel1.Name = "FlowLayoutPanel1"
-        Me.FlowLayoutPanel1.Size = New System.Drawing.Size(747, 39)
-        Me.FlowLayoutPanel1.TabIndex = 20
-        '
-        'FlowLayoutPanel2
-        '
-        Me.FlowLayoutPanel2.Controls.Add(Me.lbProyectos)
-        Me.FlowLayoutPanel2.Location = New System.Drawing.Point(5, 134)
-        Me.FlowLayoutPanel2.Name = "FlowLayoutPanel2"
-        Me.FlowLayoutPanel2.Size = New System.Drawing.Size(132, 254)
-        Me.FlowLayoutPanel2.TabIndex = 21
-        '
-        'lbProyectos
-        '
-        Me.lbProyectos.AutoSize = True
-        Me.lbProyectos.Location = New System.Drawing.Point(3, 0)
-        Me.lbProyectos.Name = "lbProyectos"
-        Me.lbProyectos.Size = New System.Drawing.Size(73, 13)
-        Me.lbProyectos.TabIndex = 0
-        Me.lbProyectos.Text = "PROYECTOS"
-        '
         'Label1
         '
         Me.Label1.AutoSize = True
@@ -404,11 +377,45 @@ Partial Class EMPHORAS
         Me.Label1.TabIndex = 0
         Me.Label1.Text = "Label1"
         '
+        'TableLayoutPanel1
+        '
+        Me.TableLayoutPanel1.AutoSize = True
+        Me.TableLayoutPanel1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.TableLayoutPanel1.ColumnCount = 16
+        'Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        'Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        'Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        'Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        'Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        'Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        'Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        'Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        'Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        'Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        'Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        'Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        'Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        'Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        'Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        'Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.TableLayoutPanel1.Location = New System.Drawing.Point(12, 130)
+        Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
+        Me.TableLayoutPanel1.RowCount = 8
+        'Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        'Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        'Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        'Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        'Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        'Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        'Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        'Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        'Me.TableLayoutPanel1.Size = New System.Drawing.Size(320, 160)
+        Me.TableLayoutPanel1.TabIndex = 22
+        '
         'EMPHORAS
         '
         Me.ClientSize = New System.Drawing.Size(906, 483)
-        Me.Controls.Add(Me.FlowLayoutPanel2)
-        Me.Controls.Add(Me.FlowLayoutPanel1)
+        Me.Controls.Add(Me.TableLayoutPanel1)
         Me.Controls.Add(Me.txBD)
         Me.Controls.Add(Me.bChgBD)
         Me.Controls.Add(Me.txtTTE)
@@ -428,8 +435,6 @@ Partial Class EMPHORAS
         CType(Me.EMPLEADOSBindingSource1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.picBoton.ResumeLayout(False)
         Me.picBoton.PerformLayout()
-        Me.FlowLayoutPanel2.ResumeLayout(False)
-        Me.FlowLayoutPanel2.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -471,9 +476,7 @@ Partial Class EMPHORAS
     Friend WithEvents PersonBSEDataSetWeb As PersonBSEDataSetWeb
     Friend WithEvents EMPLEADOSWEBBindingSource As BindingSource
     Friend WithEvents EMPLEADOS_WEBTableAdapter As PersonBSEDataSetWebTableAdapters.EMPLEADOS_WEBTableAdapter
-    Friend WithEvents FlowLayoutPanel1 As FlowLayoutPanel
-    Friend WithEvents FlowLayoutPanel2 As FlowLayoutPanel
-    Friend WithEvents lbProyectos As Label
     Friend WithEvents Label1 As Label
+    Friend WithEvents TableLayoutPanel1 As TableLayoutPanel
     'Friend WithEvents txtDia As TextBox
 End Class
