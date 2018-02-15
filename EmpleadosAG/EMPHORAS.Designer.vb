@@ -409,7 +409,7 @@ Partial Class EMPHORAS
         'Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
         'Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
         'Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        'Me.TableLayoutPanel1.Size = New System.Drawing.Size(320, 160)
+        Me.TableLayoutPanel1.Size = New System.Drawing.Size(320, 160)
         Me.TableLayoutPanel1.TabIndex = 22
         '
         'EMPHORAS

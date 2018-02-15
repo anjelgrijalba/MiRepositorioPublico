@@ -681,11 +681,12 @@ Public Class EMPHORAS
         Next
     End Sub
 
-    Private Sub cmdSemAnt_Click()
-        If txtDia(0).text = "" Then Exit Sub
+    Private Sub cmdSemAnt_Click(sender As Object, e As EventArgs) Handles cmdSemAnt.Click
+        If txtDia(0).Text = "" Then Exit Sub
 
-        SemanaAnterior(CDate(txtDia(0).text))
+        SemanaAnterior(CDate(txtDia(0).Text))
     End Sub
+
 
     Private Sub SemanaAnterior(sFec As Date)
         Dim fDia As Date
@@ -694,12 +695,12 @@ Public Class EMPHORAS
         Dim oTxt As String
         Dim oCtrl As TextBox
         Dim tH As Single
-        Dim rs As New ADODB.Recordset
+        ' Dim rs As New ADODB.Recordset
         'Dim resp As VbMsgBoxResult
 
         fDia = sFec
         fDia = DateAdd("d", -1, fDia)
-        If Month(fDia) <> cbMes.SelectedItem.ToString() Then Exit Sub
+        If Month(fDia) <> cbMes.SelectedIndex + 1 Then Exit Sub
 
         uDia = DateSerial(Year(fDia), Month(fDia), 1)
         LimpiarDatos()
@@ -729,11 +730,12 @@ Public Class EMPHORAS
     End Sub
 
 
-    Private Sub cmdSemSig_Click()
+    Private Sub cmdSemSig_Click(sender As Object, e As EventArgs) Handles cmdSemSig.Click
         If txtDia(6).Text = "" Then Exit Sub
 
         SemanaSiguiente(CDate(txtDia(6).Text))
     End Sub
+
 
     Private Sub SemanaSiguiente(sFec As Date)
         Dim fDia As Date
@@ -746,7 +748,10 @@ Public Class EMPHORAS
 
         fDia = sFec
         fDia = DateAdd("d", 1, fDia)
-        If Month(fDia) <> cbMes.SelectedItem.ToString() Then Exit Sub
+        Dim M = Month(fDia)
+        Dim b = cbMes.SelectedIndex + 1
+
+        If Month(fDia) <> cbMes.SelectedIndex + 1 Then Exit Sub
 
         uDia = DateSerial(Year(fDia), Month(fDia) + 1, 1)
         numDias = DateDiff("d", fDia, uDia)
@@ -906,7 +911,6 @@ Public Class EMPHORAS
                                      On  [PersonBSE].[dbo].[PROYECTOS].Código_Proyecto = [PersonBSE].[dbo].[PROYECTOS_EMPLEADOS].CODIGO_PROYECTO
 									 WHERE MATRICULA =" & CStr(id).ToString
 
-
             Dim dr As IDataReader = com.ExecuteReader()
 
             For a = 1 To NUMFIL
@@ -914,63 +918,50 @@ Public Class EMPHORAS
                 cbProy(a).Items.Add("")
             Next
 
-
             While dr.Read()
 
                 For a = 1 To NUMFIL
 
-                    'cbProy(a).Items.Add((dr(0).ToString) + (dr(1).ToString))
-                    'CargarProy(cbProy(a), dr)
-
-                    'Lista.Items.Add("<sin proyecto>")
-                    ' cbProy(i).Text = dr("Nombre_proyecto")
                     If (dr("FECHA_FIN")) Is Nothing Then
                         cbProy(a).Items.Add(dr("CODIGO").ToString() + "| * " + dr("NOMBRE").ToString) 'proyecto terminado
-                        'esto está deprecated
-                        'ElseIf rsP("ACTIVO")  Then
-                        'Lista.Items.Add(rsP("código_proyecto").ToString() + "| ** " + rsP("nombre_proyecto").ToString())
+
                     Else 'proyecto activo
                         cbProy(a).Items.Add(dr("CODIGO").ToString() + "| " + dr("NOMBRE").ToString())
-                        End If
-
+                    End If
 
                     cbProy(a).SelectedIndex = 0
-
-
-
-
 
                 Next
 
             End While
             dr.Close()
             'CargarIDProy(cbProyVal, dr)
-
         End Using
     End Sub
-    Public Sub CargarProy(ByRef Lista As ComboBox, ByRef dr As IDataReader)
 
-        Lista.Items.Clear()
-        'Lista.Items.Add("<sin proyecto>")
-        Lista.Items.Add("")
+    'Public Sub CargarProy(ByRef Lista As ComboBox, ByRef dr As IDataReader)
+
+    '    Lista.Items.Clear()
+    '    'Lista.Items.Add("<sin proyecto>")
+    '    Lista.Items.Add("")
 
 
-        While (dr.Read())
+    '    While (dr.Read())
 
-            ' cbProy(i).Text = dr("Nombre_proyecto")
-            If IsNothing(dr("FECHA_FIN")) Then
-                Lista.Items.Add(dr("CODIGO").ToString() + "| * " + dr("NOMBRE").ToString) 'proyecto terminado
-                'esto está deprecated
-                'ElseIf rsP("ACTIVO")  Then
-                'Lista.Items.Add(rsP("código_proyecto").ToString() + "| ** " + rsP("nombre_proyecto").ToString())
-            Else 'proyecto activo
-                Lista.Items.Add(dr("CODIGO").ToString() + "| " + dr("NOMBRE").ToString())
-            End If
+    '        ' cbProy(i).Text = dr("Nombre_proyecto")
+    '        If IsNothing(dr("FECHA_FIN")) Then
+    '            Lista.Items.Add(dr("CODIGO").ToString() + "| * " + dr("NOMBRE").ToString) 'proyecto terminado
+    '            'esto está deprecated
+    '            'ElseIf rsP("ACTIVO")  Then
+    '            'Lista.Items.Add(rsP("código_proyecto").ToString() + "| ** " + rsP("nombre_proyecto").ToString())
+    '        Else 'proyecto activo
+    '            Lista.Items.Add(dr("CODIGO").ToString() + "| " + dr("NOMBRE").ToString())
+    '        End If
 
-        End While
-        Lista.SelectedIndex = 0
+    '    End While
+    '    Lista.SelectedIndex = 0
 
-    End Sub
+    'End Sub
 
     Public Sub CargarIDProy(ByVal Lista As ComboBox, ByVal rsP As ADODB.Recordset)
         Dim i As Integer
@@ -996,14 +987,6 @@ Public Class EMPHORAS
                 dia.Text = ""
             End If
         Next
-        'Dim proy As ComboBox
-
-        'For Each proy In cbProy
-        '    proy.Items.Clear()
-        'Next
-
-
-
 
         For Each oObj In Me.Controls
 
@@ -1457,6 +1440,8 @@ fallo:
         End While
 
     End Function
+
+
 
 
 
