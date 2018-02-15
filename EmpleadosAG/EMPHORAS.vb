@@ -897,27 +897,58 @@ Public Class EMPHORAS
 
             Dim com As IDbCommand = con.CreateCommand()
 
-            com.CommandText = "SELECT PROYECTOS.*, ACTIVO" &
-            " FROM PROYECTOS INNER JOIN PROYECTOS_EMPLEADOS ON PROYECTOS.Código_Proyecto = PROYECTOS_EMPLEADOS.CODIGO_PROYECTO " &
-            " WHERE PROYECTOS_EMPLEADOS.MATRICULA=" & CStr(id) & " order by fecha_fin, activo, código_proyecto;"
+            'com.CommandText = "SELECT PROYECTOS.*, ACTIVO" &
+            '" FROM PROYECTOS INNER JOIN PROYECTOS_EMPLEADOS ON PROYECTOS.Código_Proyecto = PROYECTOS_EMPLEADOS.CODIGO_PROYECTO " &
+            '" WHERE PROYECTOS_EMPLEADOS.MATRICULA=" & CStr(id) & " order by fecha_fin, activo, código_proyecto;"
+            com.CommandText = "SELECT PROYECTOS.Código_Proyecto as CODIGO,
+                                      PROYECTOS.Nombre_Proyecto as NOMBRE,
+                                      PROYECTOS.FECHA_FIN as FECHA_FIN FROM [PersonBSE].[dbo].[PROYECTOS] INNER JOIN [PersonBSE].[dbo].[PROYECTOS_EMPLEADOS] 
+                                     On  [PersonBSE].[dbo].[PROYECTOS].Código_Proyecto = [PersonBSE].[dbo].[PROYECTOS_EMPLEADOS].CODIGO_PROYECTO
+									 WHERE MATRICULA =" & CStr(id).ToString
+
 
             Dim dr As IDataReader = com.ExecuteReader()
 
-            'Dim dr As IDataReader
-            Dim a As Integer
+            For a = 1 To NUMFIL
+                cbProy(a).Items.Clear()
+                cbProy(a).Items.Add("")
+            Next
 
-            If Proyectos(dr) Then
+
+            While dr.Read()
+
                 For a = 1 To NUMFIL
-                    CargarProy(cbProy(a), dr)
+
+                    'cbProy(a).Items.Add((dr(0).ToString) + (dr(1).ToString))
+                    'CargarProy(cbProy(a), dr)
+
+                    'Lista.Items.Add("<sin proyecto>")
+                    ' cbProy(i).Text = dr("Nombre_proyecto")
+                    If (dr("FECHA_FIN")) Is Nothing Then
+                        cbProy(a).Items.Add(dr("CODIGO").ToString() + "| * " + dr("NOMBRE").ToString) 'proyecto terminado
+                        'esto está deprecated
+                        'ElseIf rsP("ACTIVO")  Then
+                        'Lista.Items.Add(rsP("código_proyecto").ToString() + "| ** " + rsP("nombre_proyecto").ToString())
+                    Else 'proyecto activo
+                        cbProy(a).Items.Add(dr("CODIGO").ToString() + "| " + dr("NOMBRE").ToString())
+                        End If
+
+
+                    cbProy(a).SelectedIndex = 0
+
+
+
+
+
                 Next
-                'CargarIDProy(cbProyVal, dr)
-            End If
+
+            End While
+            dr.Close()
+            'CargarIDProy(cbProyVal, dr)
+
         End Using
     End Sub
-    Public Sub CargarProy(ByRef Lista As ComboBox, dr As IDataReader)
-
-        Dim con As IDbConnection = New SqlConnection(gConexion)
-        Dim i As Integer = 0
+    Public Sub CargarProy(ByRef Lista As ComboBox, ByRef dr As IDataReader)
 
         Lista.Items.Clear()
         'Lista.Items.Add("<sin proyecto>")
@@ -927,13 +958,13 @@ Public Class EMPHORAS
         While (dr.Read())
 
             ' cbProy(i).Text = dr("Nombre_proyecto")
-            If dr("FECHA_FIN") <> "" Or dr("FECHA_FIN").DBNull Then
-                Lista.Items.Add(dr("código_proyecto").ToString() + "| * " + dr("nombre_proyecto").ToString) 'proyecto terminado
+            If IsNothing(dr("FECHA_FIN")) Then
+                Lista.Items.Add(dr("CODIGO").ToString() + "| * " + dr("NOMBRE").ToString) 'proyecto terminado
                 'esto está deprecated
                 'ElseIf rsP("ACTIVO")  Then
                 'Lista.Items.Add(rsP("código_proyecto").ToString() + "| ** " + rsP("nombre_proyecto").ToString())
             Else 'proyecto activo
-                Lista.Items.Add(dr("código_proyecto").ToString() + "| " + dr("nombre_proyecto").ToString())
+                Lista.Items.Add(dr("CODIGO").ToString() + "| " + dr("NOMBRE").ToString())
             End If
 
         End While
@@ -961,10 +992,18 @@ Public Class EMPHORAS
         Dim tooltip1 As New ToolTip()
         Dim dia As TextBox
         For Each dia In txtDia
-            If IsNothing(dia) Then
+            If Not IsNothing(dia) Then
                 dia.Text = ""
             End If
         Next
+        'Dim proy As ComboBox
+
+        'For Each proy In cbProy
+        '    proy.Items.Clear()
+        'Next
+
+
+
 
         For Each oObj In Me.Controls
 
