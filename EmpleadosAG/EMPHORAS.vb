@@ -1261,31 +1261,57 @@ fallo:
 
     Public Function EsLaboral(ByVal fec As Date, ByVal cal As String, ByRef nH As Single) As Boolean
         Dim dY As Integer, dM As Integer, dD As Integer
-        Dim rsCal As New ADODB.Recordset
-        Dim sSql As String
 
         dY = Year(fec)
         dM = Month(fec)
         dD = fec.Day
 
-        sSql = "select [" & CStr(dD) & "] from calendario_" & CStr(dY) & " where cal='" & cal & "' and id=" & dM & ";"
-        Using connection As New SqlConnection(gConexion)
-            Dim command As New SqlCommand(sSql, connection)
-            command.Connection.Open()
-            command.ExecuteNonQuery()
-            Dim Count = command.ExecuteScalar()
+        Dim con As IDbConnection
+        con = New SqlConnection(gConexion)
+        '// :TODO
+        cal = "MAD_8"
+        Using (con)
 
-            If Count <> 0 Then
-                If IsNumeric(rsCal(0)) Then
-                    nH = PuntoPorComa(rsCal(0))
+            con.Open()
+
+            Dim com As IDbCommand = con.CreateCommand()
+
+            com.CommandText = "select [" & CStr(dD) & "] from calendario_" & CStr(dY) & " where cal='" & cal & "' and id=" & dM & ";"
+
+            Dim dr As IDataReader = com.ExecuteReader()
+
+            EsLaboral = False
+            While (dr.Read())
+                If IsNumeric(dr(0)) Then
+                    nH = PuntoPorComa(dr(0))
                     EsLaboral = True
-                Else
-                    EsLaboral = False
                 End If
-            Else
-                EsLaboral = False
-            End If
+            End While
+
         End Using
+
+
+
+
+
+        'sSql = "select [" & CStr(dD) & "] from calendario_" & CStr(dY) & " where cal='" & cal & "' and id=" & dM & ";"
+        'Using connection As New SqlConnection(gConexion)
+        '    Dim command As New SqlCommand(sSql, connection)
+        '    command.Connection.Open()
+        '    command.ExecuteNonQuery()
+        '    Dim Count = command.ExecuteScalar()
+
+        '    If Count <> 0 Then
+        '        If IsNumeric(rsCal(0)) Then
+        '            nH = PuntoPorComa(rsCal(0))
+        '            EsLaboral = True
+        '        Else
+        '            EsLaboral = False
+        '        End If
+        '    Else
+        '        EsLaboral = False
+        '    End If
+        'End Using
         'rsCal.CursorLocation = ADODB.CursorLocationEnum.adUseClient
         'rsCal.Open(sSql, dbHoras, ADODB.CursorTypeEnum.adOpenStatic)
         'If rsCal.RecordCount <> 0 Then
