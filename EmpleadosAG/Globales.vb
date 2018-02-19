@@ -46,6 +46,7 @@ Module Globales
 
 
 #Region "colores"
+    Public ReadOnly Property G_ROSA_CLARITO As Color = Color.FromName("LightPink")
     Public ReadOnly Property G_AMARILLO_CLARITO As Color = Color.FromName("LightGoldenrodYellow")
     Public ReadOnly Property G_VERDE_CLARITO As Color = Color.FromName("LightGreen")
     Public ReadOnly Property G_ROSA As Color = Color.FromName("MistyRose")

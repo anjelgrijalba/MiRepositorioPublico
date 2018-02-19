@@ -21,21 +21,8 @@ Public Class EMPHORAS
     Const NUMFIL = 7
 
     Dim txtDia(6) As TextBox
-    Public Sub CreartxtDia()
-        Dim lbProyectos = New Label
-        lbProyectos.Text = "PROYECTOS"
-        TableLayoutPanel1.Controls.Add(lbProyectos, 0, 0)
-        For n = 0 To 6
-            txtDia(n) = New TextBox()
-            If (n >= 0 And n <= 4) Then
-                txtDia(n).BackColor = G_AMARILLO_CLARITO
-            ElseIf (n >= 5 & n <= 6) Then
-                txtDia(n).BackColor = G_VERDE_CLARITO
-            End If
-            TableLayoutPanel1.Controls.Add(txtDia(n), n + 1, 0)
-            TableLayoutPanel1.SetColumnSpan(txtDia(n), 2)
-        Next
-    End Sub
+
+
     Public cbProy(13) As ComboBox
     'Public Sub CrearCbProy()
     '    For n = 0 To 13
@@ -44,6 +31,25 @@ Public Class EMPHORAS
     '        FlowLayoutPanel2.Controls.Add(cbProy(n))
     '    Next
     'End Sub
+    Public Sub CreartxtDia()
+        Dim lbProyectos = New Label
+        lbProyectos.Text = "PROYECTOS"
+        TableLayoutPanel1.Controls.Add(lbProyectos, 0, 0)
+        Dim lbTotal = New Label
+        lbTotal.Text = "TOTAL"
+        TableLayoutPanel1.Controls.Add(lbTotal, 8, 0)
+        For n = 0 To 6
+            txtDia(n) = New TextBox()
+            If (n >= 0 And n <= 4) Then
+                txtDia(n).BackColor = G_AMARILLO_CLARITO
+            ElseIf (n >= 5 And n <= 6) Then
+                txtDia(n).BackColor = G_VERDE_CLARITO
+            End If
+            TableLayoutPanel1.Controls.Add(txtDia(n), n + 1, 0)
+            TableLayoutPanel1.SetColumnSpan(txtDia(n), 2)
+            TableLayoutPanel1.SetColumnSpan(lbTotal, 2)
+        Next
+    End Sub
     Public txtH1(9) As TextBox
     Public txtE1(9) As TextBox
     Public Sub CreartxtH1()
@@ -51,14 +57,13 @@ Public Class EMPHORAS
         For c = 1 To 9
             txtH1(c) = New TextBox()
             txtH1(c).Width = 45
-            txtH1(c).Text = "txtH1"
             TableLayoutPanel1.Controls.Add(txtH1(c), 1, c)
             txtE1(c) = New TextBox()
             txtE1(c).Width = 45
-            txtE1(c).Text = "txtE1"
             TableLayoutPanel1.Controls.Add(txtE1(c), 2, c)
+            txtH1(c).BackColor = G_AMARILLO_CLARITO
+            txtE1(c).BackColor = G_AMARILLO_CLARITO
             cbProy(c) = New ComboBox()
-            'cbProy(n).Text = n
             TableLayoutPanel1.Controls.Add(cbProy(c), 0, c)
         Next
     End Sub
@@ -69,11 +74,11 @@ Public Class EMPHORAS
         For c = 1 To 9
             txtH2(c) = New TextBox()
             txtH2(c).Width = 45
-            txtH2(c).Text = "txtH2"
             TableLayoutPanel1.Controls.Add(txtH2(c), 3, c)
             txtE2(c) = New TextBox()
             txtE2(c).Width = 45
-            txtE2(c).Text = "txtE2"
+            txtH2(c).BackColor = G_AMARILLO_CLARITO
+            txtE2(c).BackColor = G_AMARILLO_CLARITO
             TableLayoutPanel1.Controls.Add(txtE2(c), 4, c)
         Next
     End Sub
@@ -84,11 +89,11 @@ Public Class EMPHORAS
         For c = 1 To 9
             txtH3(c) = New TextBox()
             txtH3(c).Width = 45
-            txtH3(c).Text = "txtH3"
             TableLayoutPanel1.Controls.Add(txtH3(c), 4, c)
             txtE3(c) = New TextBox()
             txtE3(c).Width = 45
-            txtE3(c).Text = "txtE3"
+            txtH3(c).BackColor = G_AMARILLO_CLARITO
+            txtE3(c).BackColor = G_AMARILLO_CLARITO
             TableLayoutPanel1.Controls.Add(txtE3(c), 5, c)
         Next
     End Sub
@@ -99,11 +104,11 @@ Public Class EMPHORAS
         For c = 1 To 9
             txtH4(c) = New TextBox()
             txtH4(c).Width = 45
-            txtH4(c).Text = "txtH4"
             TableLayoutPanel1.Controls.Add(txtH4(c), 6, c)
             txtE4(c) = New TextBox()
             txtE4(c).Width = 45
-            txtE4(c).Text = "txtE4"
+            txtH4(c).BackColor = G_AMARILLO_CLARITO
+            txtE4(c).BackColor = G_AMARILLO_CLARITO
             TableLayoutPanel1.Controls.Add(txtE4(c), 7, c)
         Next
     End Sub
@@ -114,11 +119,11 @@ Public Class EMPHORAS
         For c = 1 To 9
             txtH5(c) = New TextBox()
             txtH5(c).Width = 45
-            txtH5(c).Text = "txtH5"
             TableLayoutPanel1.Controls.Add(txtH5(c), 8, c)
             txtE5(c) = New TextBox()
             txtE5(c).Width = 45
-            txtE5(c).Text = "txtE5"
+            txtH5(c).BackColor = G_AMARILLO_CLARITO
+            txtE5(c).BackColor = G_AMARILLO_CLARITO
             TableLayoutPanel1.Controls.Add(txtE5(c), 9, c)
         Next
     End Sub
@@ -129,11 +134,11 @@ Public Class EMPHORAS
         For c = 1 To 9
             txtH6(c) = New TextBox()
             txtH6(c).Width = 45
-            txtH6(c).Text = "txtH6"
             TableLayoutPanel1.Controls.Add(txtH6(c), 10, c)
             txtE6(c) = New TextBox()
             txtE6(c).Width = 45
-            txtE6(c).Text = "txtE6"
+            txtH6(c).BackColor = G_VERDE_CLARITO
+            txtE6(c).BackColor = G_VERDE_CLARITO
             TableLayoutPanel1.Controls.Add(txtE6(c), 11, c)
         Next
     End Sub
@@ -144,12 +149,28 @@ Public Class EMPHORAS
         For c = 1 To 9
             txtH7(c) = New TextBox()
             txtH7(c).Width = 45
-            txtH7(c).Text = "txtH7"
             TableLayoutPanel1.Controls.Add(txtH7(c), 12, c)
             txtE7(c) = New TextBox()
             txtE7(c).Width = 45
-            txtE7(c).Text = "txtE7"
+            txtH7(c).BackColor = G_VERDE_CLARITO
+            txtE7(c).BackColor = G_VERDE_CLARITO
             TableLayoutPanel1.Controls.Add(txtE7(c), 13, c)
+        Next
+    End Sub
+
+    Public txtTHP(9) As TextBox
+    Public txtTEP(9) As TextBox
+    Public Sub CreartxtTHP()
+        Dim c As Integer
+        For c = 1 To 9
+            txtTHP(c) = New TextBox()
+            txtTHP(c).Width = 45
+            TableLayoutPanel1.Controls.Add(txtTHP(c), 14, c)
+            txtTEP(c) = New TextBox()
+            txtTEP(c).Width = 45
+            txtTHP(c).BackColor = G_ROSA_CLARITO
+            txtTEP(c).BackColor = G_ROSA_CLARITO
+            TableLayoutPanel1.Controls.Add(txtTEP(c), 15, c)
         Next
     End Sub
 
@@ -185,8 +206,6 @@ Public Class EMPHORAS
 
         CrearLabel()
         'CrearCbProy()
-        CreartxtTHP()
-        CreartxtTEP()
         CreartxtTH()
         CreartxtTE()
         CreartxtDia()
@@ -197,6 +216,10 @@ Public Class EMPHORAS
         CreartxtH5()
         CreartxtH6()
         CreartxtH7()
+        CreartxtTHP()
+
+
+
 
         RellenarAño(cbAño)
         RellenarMes(cbMes)
@@ -783,115 +806,139 @@ Public Class EMPHORAS
     End Sub
 
     Private Function Cargar_Horas_Dia(ByVal dia As Date, ByVal nId As Integer, ByVal col As Integer) As Boolean
-        Dim rsH As New ADODB.Recordset
+
         Dim sNom As String
         Dim fil, pro_act, dPr As Integer
         Dim oObj As Object
         Dim encontrado As Integer
         Dim Horas As Single
 
+        Dim año As Integer = Year(dia)
+
         Cargar_Horas_Dia = True
         EsLaboral(dia, EmpCal, Horas)
-        If Partes_del_dia(dia, nId, rsH) Then
-            rsH.MoveFirst()
 
-            For dPr = 0 To rsH.RecordCount - 1
-                For fil = 0 To NUMFIL
-                    If lbC(fil).Text() = "" Then
-                        encontrado = -1
-                        pro_act = fil
-                        Exit For
-                    End If
-                    If lbC(fil).Text() = rsH("Proyecto").ToString() Then
-                        encontrado = fil
-                        Exit For
-                    End If
-                Next
+        Dim con As IDbConnection
+        con = New SqlConnection(gConexion)
 
-                If encontrado = -1 Then
-                    'nuevo proyecto
-                    fil = pro_act
-                    If IsDBNull(rsH("Nombre_proyecto")) Then
-                        cbProyVal.Items.Add(rsH("Proyecto"))
-                        For i = 0 To NUMFIL
-                            cbProy(i).Items.Add(rsH("Proyecto").ToString() & "| - FALTA EN BD")
+        Using (con)
+
+            con.Open()
+
+            Dim com As IDbCommand = con.CreateCommand()
+
+            com.CommandText = "SELECT " & sPER & "HORAS_" & CStr(año) & ".*, PROYECTOS.Nombre_Proyecto " &
+          "FROM " & sPER & "HORAS_" & CStr(año) & " LEFT JOIN PROYECTOS ON " & sPER & "HORAS_" & CStr(año) & ".Proyecto = PROYECTOS.Código_Proyecto " &
+          "WHERE " & sPER & "HORAS_" & CStr(año) & ".Matricula=" & CStr(nId) &
+          " and fecha=" & FormatFecha(dia, bWeb) & " order by proyectos.código_Proyecto;"
+
+            Dim dr As IDataReader = com.ExecuteReader()
+            While (dr.Read())
+                If IsDBNull(dr.Item(0)) Then
+                    If EsLaboral(dia, EmpCal, Horas) Then
+                        'cargar horas por defecto
+                        For fil = 0 To NUMFIL
+                            If lbC(fil).Text() = "" Then
+                                pro_act = fil
+                                Exit For
+                            End If
                         Next
+                        For Each oObj In Me.Controls
+                            If Mid(oObj.Name, 1, 4) = "txtH" Then
+                                If oObj.Name = "txtH" + CStr(col) And oObj.Index = pro_act Then
+                                    Exit For
+                                End If
+                            End If
+                        Next
+                        oObj.text = CStr(Horas)
+
+                        Cargar_Horas_Dia = True
+                        oObj.Enabled = True
                     End If
-                    lbC(fil).Text() = rsH("Proyecto")
-                    On Error Resume Next
-                    cbProyVal.text = ""
-                    cbProyVal.Text = lbC(fil).Text()
-                    cbProy(fil).SelectedIndex() = cbProyVal.SelectedIndex()
-                    On Error GoTo 0
-                    lbC(fil).Text() = rsH("Proyecto")
                 Else
-                    'el proyecto ya existe
-                    fil = encontrado
-                End If
-                'cargar horas al proyecto y dia
-                For Each oObj In Me.Controls
-                    If Mid(oObj.Name, 1, 4) = "txtH" Then
-                        If oObj.Name = "txtH" + CStr(col) And oObj.Index = fil Then
+                    For fil = 0 To NUMFIL
+                        If lbC(fil).Text() = "" Then
+                            encontrado = -1
+                            pro_act = fil
                             Exit For
                         End If
-                    End If
-                Next
-                oObj.text = Format(rsH("horas"), "#0.00")
-                If rsH("Comentarios").ToString() <> "" Then
-                    oObj.ToolTipText = rsH("Comentarios")
-                    oObj.ForeColor = vbBlack
-                    oObj.BackColor = G_AZUL
-                End If
-                oObj.Enabled = True
-                If rsH("bloqueo").ToString = True Then
-                    If rsH("proyecto").ToString <> "S00002" Then
-                        Cargar_Horas_Dia = False
-                    End If
-                    oObj.Enabled = False
-                End If
-                For Each oObj In Me.Controls
-                    If Mid(oObj.Name, 1, 4) = "txtE" Then
-                        If oObj.Name = "txtE" + CStr(col) And oObj.Index = fil Then
+                        If lbC(fil).Text() = dr("Proyecto").ToString() Then
+                            encontrado = fil
                             Exit For
                         End If
-                    End If
-                Next
-                oObj.text = Format(rsH("horasextras"), "#0.00")
-                oObj.Enabled = True
-                If rsH("bloqueo").ToString = True Then
-                    If rsH("proyecto").ToString <> "S00002" Then
-                        Cargar_Horas_Dia = False
+                    Next
+
+                    If encontrado = -1 Then
+                            'nuevo proyecto
+                            fil = pro_act
+                        If IsDBNull(dr("Nombre_proyecto")) Then
+                            cbProyVal.Items.Add(dr("Proyecto"))
+                            For i = 0 To NUMFIL
+                                cbProy(i).Items.Add(dr("Proyecto").ToString() & "| - FALTA EN BD")
+                            Next
+                        End If
+                        lbC(fil).Text() = dr("Proyecto")
+                        'On Error Resume Next
+                        cbProyVal.Text = ""
+                            cbProyVal.Text = lbC(fil).Text()
+                            cbProy(fil).SelectedIndex() = cbProyVal.SelectedIndex()
+                        'On Error GoTo 0
+                        lbC(fil).Text() = dr("Proyecto")
                     Else
-                        If rsH("horas").ToString = Horas Then
+                            'el proyecto ya existe
+                            fil = encontrado
+                        End If
+                        'cargar horas al proyecto y dia
+                        For Each oObj In Me.Controls
+                            If Mid(oObj.Name, 1, 4) = "txtH" Then
+                                If oObj.Name = "txtH" + CStr(col) And oObj.Index = fil Then
+                                    Exit For
+                                End If
+                            End If
+                        Next
+                    oObj.text = Format(dr("horas"), "#0.00")
+                    If dr("Comentarios").ToString() <> "" Then
+                        oObj.ToolTipText = dr("Comentarios")
+                        oObj.ForeColor = vbBlack
+                        oObj.BackColor = G_AZUL
+                    End If
+                    oObj.Enabled = True
+                    If dr("bloqueo").ToString = True Then
+                        If dr("proyecto").ToString <> "S00002" Then
                             Cargar_Horas_Dia = False
                         End If
+                        oObj.Enabled = False
                     End If
-                    oObj.Enabled = False
-                End If
-                rsH.MoveNext()
-            Next
-        Else
-            If EsLaboral(dia, EmpCal, Horas) Then
-                'cargar horas por defecto
-                For fil = 0 To NUMFIL
-                    If lbC(fil).Text() = "" Then
-                        pro_act = fil
-                        Exit For
-                    End If
-                Next
-                For Each oObj In Me.Controls
-                    If Mid(oObj.Name, 1, 4) = "txtH" Then
-                        If oObj.Name = "txtH" + CStr(col) And oObj.Index = pro_act Then
-                            Exit For
+                    For Each oObj In Me.Controls
+                            If Mid(oObj.Name, 1, 4) = "txtE" Then
+                                If oObj.Name = "txtE" + CStr(col) And oObj.Index = fil Then
+                                    Exit For
+                                End If
+                            End If
+                        Next
+                    oObj.text = Format(dr("horasextras"), "#0.00")
+                    oObj.Enabled = True
+                    If dr("bloqueo").ToString = True Then
+                        If dr("proyecto").ToString <> "S00002" Then
+                            Cargar_Horas_Dia = False
+                        Else
+                            If dr("horas").ToString = Horas Then
+                                Cargar_Horas_Dia = False
+                            End If
                         End If
+                        oObj.Enabled = False
                     End If
-                Next
-                oObj.text = CStr(Horas)
 
-                Cargar_Horas_Dia = True
-                oObj.Enabled = True
-            End If
-        End If
+
+
+                End If
+
+
+            End While
+
+
+        End Using
+
     End Function
 
     Private Sub ListaProyectos(id As Integer)
@@ -1341,27 +1388,50 @@ fallo:
         EjecutarSqlTrans = False
     End Function
 
-    Public Function Partes_del_dia(ByVal fDia As Date, ByVal id As Integer, ByRef rs As ADODB.Recordset) As Boolean
-        Dim sSql As String
-        Dim año As Integer
-        Dim bSql As Boolean
+    Public Function Partes_del_dia(ByVal fDia As Date, ByVal id As Integer, ByRef dr As IDataReader) As Boolean
 
-        bSql = EsSQLServer(dbHoras)
+        Dim año As Integer
         año = Year(fDia)
-        sSql = "SELECT " & sPER & "HORAS_" & CStr(año) & ".*, PROYECTOS.Nombre_Proyecto " &
+
+        Dim con As IDbConnection
+        con = New SqlConnection(gConexion)
+
+        Using (con)
+
+            con.Open()
+
+            Dim com As IDbCommand = con.CreateCommand()
+
+            com.CommandText = "SELECT " & sPER & "HORAS_" & CStr(año) & ".*, PROYECTOS.Nombre_Proyecto " &
           "FROM " & sPER & "HORAS_" & CStr(año) & " LEFT JOIN PROYECTOS ON " & sPER & "HORAS_" & CStr(año) & ".Proyecto = PROYECTOS.Código_Proyecto " &
           "WHERE " & sPER & "HORAS_" & CStr(año) & ".Matricula=" & CStr(id) &
-          " and fecha=" & FormatFecha(fDia, bSql) & " order by proyectos.código_Proyecto;"
+          " and fecha=" & FormatFecha(fDia, bWeb) & " order by proyectos.código_Proyecto;"
 
-        rs.CursorLocation = ADODB.CursorLocationEnum.adUseClient
-        rs.Open(sSql, dbHoras, ADODB.CursorTypeEnum.adOpenStatic)
+            dr = com.ExecuteReader()
+            If IsDBNull(dr.Item(0)) Then
+                Partes_del_dia = False
+            Else
+                Partes_del_dia = True
+            End If
 
-        If rs.RecordCount <> 0 Then
-            Partes_del_dia = True
-        Else
-            Partes_del_dia = False
-        End If
+        End Using
     End Function
+
+    '    bSql = EsSQLServer(dbHoras)
+    '    año = Year(fDia)
+    '    sSql = "SELECT " & sPER & "HORAS_" & CStr(año) & ".*, PROYECTOS.Nombre_Proyecto " &
+    '      "FROM " & sPER & "HORAS_" & CStr(año) & " LEFT JOIN PROYECTOS ON " & sPER & "HORAS_" & CStr(año) & ".Proyecto = PROYECTOS.Código_Proyecto " &
+    '      "WHERE " & sPER & "HORAS_" & CStr(año) & ".Matricula=" & CStr(id) &
+    '      " and fecha=" & FormatFecha(fDia, bSql) & " order by proyectos.código_Proyecto;"
+
+    '    rs.CursorLocation = ADODB.CursorLocationEnum.adUseClient
+    '    rs.Open(sSql, dbHoras, ADODB.CursorTypeEnum.adOpenStatic)
+
+    '    If rs.RecordCount <> 0 Then
+    '        Partes_del_dia = True
+    '    Else
+    '        Partes_del_dia = False
+    '    End If
 
 
 
@@ -1382,28 +1452,41 @@ fallo:
     End Function
 
     Public Function Horas_del_dia(ByVal fDia As Date, ByVal id As Integer) As Single
-        Dim sSql As String
-        Dim año As Integer
-        Dim rs As New ADODB.Recordset
-        Dim bSql As Boolean
 
-        bSql = EsSQLServer(dbHoras)
+        Dim bSql As Boolean
+        Dim año As Integer
         año = Year(fDia)
 
-        sSql = "SELECT sum(Horas) " &
-            "FROM " & sPER & "HORAS_" & CStr(año) &
+        Dim con As IDbConnection
+        con = New SqlConnection(gConexion)
+
+        Using (con)
+
+            con.Open()
+
+            Dim com As IDbCommand = con.CreateCommand()
+
+            com.CommandText = "SELECT sum(Horas) " &
+            "FROM P_HORAS_" & CStr(año) &
             " WHERE Matricula=" & CStr(id) &
             " and fecha=" & FormatFecha(fDia, bSql) & ""
+            'com.CommandText = "SELECT sum(Horas) " &
+            '"FROM " & sPER & "HORAS_" & CStr(año) &
+            '" WHERE Matricula=" & CStr(id) &
+            '" and fecha=" & FormatFecha(fDia, bSql) & ""
 
-        rs.CursorLocation = ADODB.CursorLocationEnum.adUseClient
-        rs.Open(sSql, dbHoras, ADODB.CursorTypeEnum.adOpenStatic)
-
-        If Not IsDBNull(rs(0)) Then
-            'Horas_del_dia = rs(0)
-            'TODO
-        Else
+            Dim dr As IDataReader = com.ExecuteReader()
             Horas_del_dia = 0
-        End If
+            While (dr.Read())
+                If dr(0) IsNot Nothing Then
+                    Horas_del_dia = dr(0)
+                End If
+
+            End While
+
+        End Using
+
+
     End Function
 
     Public Function Vacaciones_del_dia(ByVal fDia As Date, ByVal id As Integer, ByVal DA As Integer) As Single
