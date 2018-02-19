@@ -826,15 +826,30 @@ Public Class EMPHORAS
             con.Open()
 
             Dim com As IDbCommand = con.CreateCommand()
+            ':TODO QUITAR
+            sPER = "P_"
+            bWeb = True
+
+            '  com.CommandText = "SELECT " & sPER & "HORAS_" & CStr(año) & ".*, PROYECTOS.Nombre_Proyecto " &
+            '"FROM " & sPER & "HORAS_" & CStr(año) & " LEFT JOIN PROYECTOS ON " & sPER & "HORAS_" & CStr(año) & ".Proyecto = PROYECTOS.Código_Proyecto " &
+            '"WHERE " & sPER & "HORAS_" & CStr(año) & ".Matricula=" & CStr(nId) &
+            '" and fecha=" & FormatFecha(dia, bWeb) & " order by proyectos.código_Proyecto;"
 
             com.CommandText = "SELECT " & sPER & "HORAS_" & CStr(año) & ".*, PROYECTOS.Nombre_Proyecto " &
           "FROM " & sPER & "HORAS_" & CStr(año) & " LEFT JOIN PROYECTOS ON " & sPER & "HORAS_" & CStr(año) & ".Proyecto = PROYECTOS.Código_Proyecto " &
           "WHERE " & sPER & "HORAS_" & CStr(año) & ".Matricula=" & CStr(nId) &
-          " and fecha=" & FormatFecha(dia, bWeb) & " order by proyectos.código_Proyecto;"
+          " and fecha='2018-01-02T00:00:00.000' order by proyectos.código_Proyecto;"
+
+
+
+
+
 
             Dim dr As IDataReader = com.ExecuteReader()
+            Dim vacio As Boolean = True
+
             While (dr.Read())
-                If IsDBNull(dr.Item(0)) Then
+                If IsNothing(dr.Item(0)) Then
                     If EsLaboral(dia, EmpCal, Horas) Then
                         'cargar horas por defecto
                         For fil = 0 To NUMFIL
@@ -961,8 +976,8 @@ Public Class EMPHORAS
             Dim dr As IDataReader = com.ExecuteReader()
 
             For a = 1 To NUMFIL
-                cbProy(a).Items.Clear()
-                cbProy(a).Items.Add("")
+                'cbProy(a).Items.Clear()
+                'cbProy(a).Items.Add("")
             Next
 
             While dr.Read()
@@ -1276,11 +1291,13 @@ fallo:
 
             Dim com As IDbCommand = con.CreateCommand()
 
+            'com.CommandText = "select [" & CStr(dD) & "] from calendario_" & CStr(dY) & " where cal='" & cal & "' and id=" & dM & ";"
             com.CommandText = "select [" & CStr(dD) & "] from calendario_" & CStr(dY) & " where cal='" & cal & "' and id=" & dM & ";"
 
             Dim dr As IDataReader = com.ExecuteReader()
 
             EsLaboral = False
+
             While (dr.Read())
                 If IsNumeric(dr(0)) Then
                     nH = PuntoPorComa(dr(0))
