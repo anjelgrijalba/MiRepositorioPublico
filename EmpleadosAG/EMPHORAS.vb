@@ -393,7 +393,7 @@ Public Class EMPHORAS
     Private Sub cmdBloquear_Click()
         If BloquearHorasMes(EmpId, dMes, dAño, True) Then
             lbMsg.Text() = "HORAS BLOQUEADAS CORRECTAMENTE"
-            If txtDia(6).text <> "" Then
+            If txtDia(6).Text <> "" Then
                 SemanaAnterior(CDate((txtDia(6).Text)).AddDays(1))
             Else
                 SemanaSiguiente(CDate((txtDia(6).Text)).AddDays(-1))
@@ -450,8 +450,8 @@ Public Class EMPHORAS
                         Next
                     End If
                 Next
-                txtTHP(fil).text = dTH
-                txtTEP(fil).text = dTE
+                txtTHP(fil).Text = dTH
+                txtTEP(fil).Text = dTE
             End If
         Next
 
@@ -460,7 +460,7 @@ Public Class EMPHORAS
             dTot = 0
             dTE = 0
             dTH = 0
-            If txtDia(col).text <> "" And txtDia(col).Font.Bold = False Then
+            If txtDia(col).Text <> "" And txtDia(col).Font.Bold = False Then
                 For fil = 0 To totFil - 1
                     sNom = "txtH" & CStr(col + 1)
                     For Each oTxt In Me.Controls
@@ -481,7 +481,7 @@ Public Class EMPHORAS
                         End If
                     Next
                 Next
-                If EsLaboral(CDate(txtDia(col).text), EmpCal, Horas) Then
+                If EsLaboral(CDate(txtDia(col).Text), EmpCal, Horas) Then
                     If Horas < dTH Then
                         lbMsg = "Las horas introducidas superan las permitidas"
                         txtTH(col).ForeColor = vbRed
@@ -491,32 +491,32 @@ Public Class EMPHORAS
                         txtTH(col).Font = New Font(txtTH(col).Font, FontStyle.Regular)
                     End If
                 End If
-                txtTH(col).text = dTH
-                txtTE(col).text = dTE
+                txtTH(col).Text = dTH
+                txtTE(col).Text = dTE
             End If
         Next
 
         dTot = 0
         For col = 0 To 6
-            If IsNumeric(txtTH(col).text) Then
-                dTot = dTot + PuntoPorComa(txtTH(col).text)
+            If IsNumeric(txtTH(col).Text) Then
+                dTot = dTot + PuntoPorComa(txtTH(col).Text)
             End If
         Next
-        txtTTH.text = dTot
+        txtTTH.Text = dTot
 
         dTot = 0
         For col = 0 To 6
-            If IsNumeric(txtTE(col).text) Then
-                dTot = dTot + PuntoPorComa(txtTE(col).text)
+            If IsNumeric(txtTE(col).Text) Then
+                dTot = dTot + PuntoPorComa(txtTE(col).Text)
             End If
         Next
-        txtTTE.text = dTot
+        txtTTE.Text = dTot
     End Sub
 
     Private Sub cmdDesb_Click()
         If BloquearHorasMes(EmpId, dMes, dAño, False) Then
             lbMsg.Text() = "HORAS DESBLOQUEADAS CORRECTAMENTE"
-            If txtDia(6).text <> "" Then
+            If txtDia(6).Text <> "" Then
                 SemanaAnterior(CDate((txtDia(6).Text)).AddDays(1))
             Else
                 SemanaSiguiente(CDate((txtDia(6).Text)).AddDays(-1))
@@ -559,9 +559,9 @@ Public Class EMPHORAS
         'guardar datos
         'por dia
         For col = 0 To 6
-            If txtDia(col).text <> "" And txtDia(col).Font.Bold = False Then
+            If txtDia(col).Text <> "" And txtDia(col).Font.Bold = False Then
                 'borrar horas actuales
-                dFec = CDate(txtDia(col).text)
+                dFec = CDate(txtDia(col).Text)
                 sDel = "DELETE from " & sPER & "HORAS_" & CStr(dAño) & " WHERE fecha=" & FormatFecha(dFec, bSql) &
                     " and bloqueo=0 and Matricula=" & CStr(EmpId) & " and proyecto<>'S00002'"
                 'Execute the SQL statement
@@ -615,8 +615,8 @@ Public Class EMPHORAS
             End If
         End If
 
-        If txtDia(6).text <> "" Then
-            SemanaSiguiente(CDate(txtDia(6).text))
+        If txtDia(6).Text <> "" Then
+            SemanaSiguiente(CDate(txtDia(6).Text))
         End If
     End Sub
 
@@ -650,10 +650,10 @@ Public Class EMPHORAS
             Exit Sub
         End If
 
-        If MsgBox("El PROYECTO AL QUE VAS ASIGNAR TODO EL MES ES: " & cbProy(0).text & vbCrLf &
+        If MsgBox("El PROYECTO AL QUE VAS ASIGNAR TODO EL MES ES: " & cbProy(0).Text & vbCrLf &
       "ESTAS SEGURA ? ", vbYesNo + vbInformation) = vbNo Then Exit Sub
 
-        If cbProy(0).text <> "" Then
+        If cbProy(0).Text <> "" Then
             pMes = DateSerial(dAño, dMes, 1)
             fMes = DateSerial(dAño, dMes + 1, 1)
             numDias = DateDiff("d", pMes, fMes) - 1
@@ -785,7 +785,7 @@ Public Class EMPHORAS
 
         'LimpiarHoras()
         For i = 0 To 6
-            txtDia(i).text = Format(fDia, "dd/MM/yy")
+            txtDia(i).Text = Format(fDia, "dd/MM/yy")
             If EsLaboral(fDia, EmpCal, tH) Then
                 If Cargar_Horas_Dia(fDia, EmpId, i + 1) Then
                     txtDia(i).Font = New Font(txtDia(i).Font, FontStyle.Regular)
@@ -830,47 +830,21 @@ Public Class EMPHORAS
             sPER = "P_"
             bWeb = True
 
-            '  com.CommandText = "SELECT " & sPER & "HORAS_" & CStr(año) & ".*, PROYECTOS.Nombre_Proyecto " &
-            '"FROM " & sPER & "HORAS_" & CStr(año) & " LEFT JOIN PROYECTOS ON " & sPER & "HORAS_" & CStr(año) & ".Proyecto = PROYECTOS.Código_Proyecto " &
-            '"WHERE " & sPER & "HORAS_" & CStr(año) & ".Matricula=" & CStr(nId) &
-            '" and fecha=" & FormatFecha(dia, bWeb) & " order by proyectos.código_Proyecto;"
-
             com.CommandText = "SELECT " & sPER & "HORAS_" & CStr(año) & ".*, PROYECTOS.Nombre_Proyecto " &
           "FROM " & sPER & "HORAS_" & CStr(año) & " LEFT JOIN PROYECTOS ON " & sPER & "HORAS_" & CStr(año) & ".Proyecto = PROYECTOS.Código_Proyecto " &
           "WHERE " & sPER & "HORAS_" & CStr(año) & ".Matricula=" & CStr(nId) &
-          " and fecha='2018-01-02T00:00:00.000' order by proyectos.código_Proyecto;"
+          " and fecha=" & FormatFecha(dia, bWeb) & " order by proyectos.código_Proyecto;"
 
-
-
-
-
+            '  com.CommandText = "SELECT " & sPER & "HORAS_" & CStr(año) & ".*, PROYECTOS.Nombre_Proyecto " &
+            '"FROM " & sPER & "HORAS_" & CStr(año) & " LEFT JOIN PROYECTOS ON " & sPER & "HORAS_" & CStr(año) & ".Proyecto = PROYECTOS.Código_Proyecto " &
+            '"WHERE " & sPER & "HORAS_" & CStr(año) & ".Matricula=" & CStr(nId) &
+            '" and fecha='2018-01-02T00:00:00.000' order by proyectos.código_Proyecto;"
 
             Dim dr As IDataReader = com.ExecuteReader()
             Dim vacio As Boolean = True
 
-            While (dr.Read())
-                If IsNothing(dr.Item(0)) Then
-                    If EsLaboral(dia, EmpCal, Horas) Then
-                        'cargar horas por defecto
-                        For fil = 0 To NUMFIL
-                            If lbC(fil).Text() = "" Then
-                                pro_act = fil
-                                Exit For
-                            End If
-                        Next
-                        For Each oObj In Me.Controls
-                            If Mid(oObj.Name, 1, 4) = "txtH" Then
-                                If oObj.Name = "txtH" + CStr(col) And oObj.Index = pro_act Then
-                                    Exit For
-                                End If
-                            End If
-                        Next
-                        oObj.text = CStr(Horas)
-
-                        Cargar_Horas_Dia = True
-                        oObj.Enabled = True
-                    End If
-                Else
+            If dr.Read() Then
+                Do
                     For fil = 0 To NUMFIL
                         If lbC(fil).Text() = "" Then
                             encontrado = -1
@@ -884,8 +858,8 @@ Public Class EMPHORAS
                     Next
 
                     If encontrado = -1 Then
-                            'nuevo proyecto
-                            fil = pro_act
+                        'nuevo proyecto
+                        fil = pro_act
                         If IsDBNull(dr("Nombre_proyecto")) Then
                             cbProyVal.Items.Add(dr("Proyecto"))
                             For i = 0 To NUMFIL
@@ -895,22 +869,22 @@ Public Class EMPHORAS
                         lbC(fil).Text() = dr("Proyecto")
                         'On Error Resume Next
                         cbProyVal.Text = ""
-                            cbProyVal.Text = lbC(fil).Text()
-                            cbProy(fil).SelectedIndex() = cbProyVal.SelectedIndex()
+                        cbProyVal.Text = lbC(fil).Text()
+                        cbProy(fil).SelectedIndex() = cbProyVal.SelectedIndex()
                         'On Error GoTo 0
                         lbC(fil).Text() = dr("Proyecto")
                     Else
-                            'el proyecto ya existe
-                            fil = encontrado
-                        End If
-                        'cargar horas al proyecto y dia
-                        For Each oObj In Me.Controls
-                            If Mid(oObj.Name, 1, 4) = "txtH" Then
-                                If oObj.Name = "txtH" + CStr(col) And oObj.Index = fil Then
-                                    Exit For
-                                End If
+                        'el proyecto ya existe
+                        fil = encontrado
+                    End If
+                    'cargar horas al proyecto y dia
+                    For Each oObj In Me.Controls
+                        If Mid(oObj.Name, 1, 4) = "txtH" Then
+                            If oObj.Name = "txtH" + CStr(col) And oObj.Index = fil Then
+                                Exit For
                             End If
-                        Next
+                        End If
+                    Next
                     oObj.text = Format(dr("horas"), "#0.00")
                     If dr("Comentarios").ToString() <> "" Then
                         oObj.ToolTipText = dr("Comentarios")
@@ -925,12 +899,12 @@ Public Class EMPHORAS
                         oObj.Enabled = False
                     End If
                     For Each oObj In Me.Controls
-                            If Mid(oObj.Name, 1, 4) = "txtE" Then
-                                If oObj.Name = "txtE" + CStr(col) And oObj.Index = fil Then
-                                    Exit For
-                                End If
+                        If Mid(oObj.Name, 1, 4) = "txtE" Then
+                            If oObj.Name = "txtE" + CStr(col) And oObj.Index = fil Then
+                                Exit For
                             End If
-                        Next
+                        End If
+                    Next
                     oObj.text = Format(dr("horasextras"), "#0.00")
                     oObj.Enabled = True
                     If dr("bloqueo").ToString = True Then
@@ -944,13 +918,31 @@ Public Class EMPHORAS
                         oObj.Enabled = False
                     End If
 
+                Loop While (dr.Read())
 
+            Else
+                If EsLaboral(dia, EmpCal, Horas) Then
+                    'cargar horas por defecto
+                    For fil = 0 To NUMFIL
+                        If lbC(fil).Text() = "" Then
+                            pro_act = fil
+                            Exit For
+                        End If
+                    Next
+                    For Each oObj In Me.Controls
+                        If Mid(oObj.Name, 1, 4) = "txtH" Then
+                            If oObj.Name = "txtH" + CStr(col) And oObj.Index = pro_act Then
+                                Exit For
+                            End If
+                        End If
+                    Next
+                    oObj.text = CStr(Horas)
 
+                    Cargar_Horas_Dia = True
+                    oObj.Enabled = True
                 End If
 
-
-            End While
-
+            End If
 
         End Using
 
@@ -976,8 +968,8 @@ Public Class EMPHORAS
             Dim dr As IDataReader = com.ExecuteReader()
 
             For a = 1 To NUMFIL
-                'cbProy(a).Items.Clear()
-                'cbProy(a).Items.Add("")
+                cbProy(a).Items.Clear()
+                cbProy(a).Items.Add("")
             Next
 
             While dr.Read()
@@ -996,7 +988,7 @@ Public Class EMPHORAS
                 Next
 
             End While
-            dr.Close()
+
             'CargarIDProy(cbProyVal, dr)
         End Using
     End Sub
@@ -1085,13 +1077,13 @@ Public Class EMPHORAS
         Dim dDia As Date
         '    If MENU.lbBD = "DATOS WEB" Then
         If sPER = "" Then
-            dDia = CDate(txtDia(Index).text)
+            dDia = CDate(txtDia(Index).Text)
             If txtDia(Index).Font.Bold = True Then 'dia bloqueado
-                If MsgBox("Quieres desbloquear el dia: " & txtDia(Index).text & "?. (Se borra de personal)", vbYesNo) = vbYes Then
+                If MsgBox("Quieres desbloquear el dia: " & txtDia(Index).Text & "?. (Se borra de personal)", vbYesNo) = vbYes Then
                     sUpd(0) = "update horas_" & CStr(Year(dDia)) & " set bloqueo=0, visado=0 where matricula= " & cbId.Text &
-                    " and fecha='" & txtDia(Index).text & "'"
+                    " and fecha='" & txtDia(Index).Text & "'"
                     sUpd(1) = "delete from p_horas_" & CStr(Year(dDia)) & " where matricula= " & cbId.Text &
-                    " and fecha='" & txtDia(Index).text & "'"
+                    " and fecha='" & txtDia(Index).Text & "'"
                     If Not EjecutarSqlTrans(sUpd, 2) Then
                         MsgBox("No se ha podido desbloquear el dia: " & txtDia(Index).Text, vbInformation)
                     Else
@@ -1100,11 +1092,11 @@ Public Class EMPHORAS
                     End If
                 End If
             Else  'no bloqueado
-                If MsgBox("Quieres bloquear el dia: " & txtDia(Index).text & "? (se inserta en personal)", vbYesNo) = vbYes Then
+                If MsgBox("Quieres bloquear el dia: " & txtDia(Index).Text & "? (se inserta en personal)", vbYesNo) = vbYes Then
                     sUpd(0) = "update horas_" & CStr(Year(dDia)) & " set bloqueo=1, visado=1 where matricula= " & cbId.Text &
-                    " and fecha='" & txtDia(Index).text & "'"
+                    " and fecha='" & txtDia(Index).Text & "'"
                     sUpd(1) = "insert into p_horas_" & CStr(Year(dDia)) & " select * from horas_" & CStr(Year(dDia)) & " where matricula= " & cbId.Text &
-                    " and fecha='" & txtDia(Index).text & "'"
+                    " and fecha='" & txtDia(Index).Text & "'"
                     If Not EjecutarSqlTrans(sUpd, 2) Then
                         MsgBox("No se ha podido bloquear el dia: " & txtDia(Index).Text, vbInformation)
                     Else
@@ -1112,10 +1104,10 @@ Public Class EMPHORAS
                     End If
                 End If
             End If
-            If txtDia(6).text <> "" Then
-                SemanaAnterior(DateAdd("d", 1, CDate(txtDia(6).text)))
+            If txtDia(6).Text <> "" Then
+                SemanaAnterior(DateAdd("d", 1, CDate(txtDia(6).Text)))
             Else
-                SemanaSiguiente(DateAdd("d", -1, CDate(txtDia(0).text)))
+                SemanaSiguiente(DateAdd("d", -1, CDate(txtDia(0).Text)))
             End If
         End If
     End Sub
