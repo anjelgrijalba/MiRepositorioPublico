@@ -25,10 +25,11 @@ Public Class EMPHORAS
 
     Public cbProy(13) As ComboBox
     'Public Sub CrearCbProy()
-    '    For n = 0 To 13
+    '    For n = 0 To NUMFIL
+
     '        cbProy(n) = New ComboBox()
-    '        'cbProy(n).Text = n
-    '        FlowLayoutPanel2.Controls.Add(cbProy(n))
+    '        cbProy(n).Text = n
+
     '    Next
     'End Sub
     Public Sub CreartxtDia()
@@ -64,6 +65,8 @@ Public Class EMPHORAS
             txtH1(c).BackColor = G_AMARILLO_CLARITO
             txtE1(c).BackColor = G_AMARILLO_CLARITO
             cbProy(c) = New ComboBox()
+            AddHandler cbProy(c).SelectedIndexChanged, AddressOf cbProy_SelectedIndexChanged
+
             TableLayoutPanel1.Controls.Add(cbProy(c), 0, c)
         Next
     End Sub
@@ -232,7 +235,10 @@ Public Class EMPHORAS
         cbAño.Text = Year(Now)
         cbMes.SelectedIndex = Month(Now) - 1
 
-        If sPER = "" Then
+        If sPER = "" Then bWeb = True
+
+
+        If bWeb Then
             Me.BackColor = G_ROSA
             Picture2.BackColor = G_ROSA
             txBD.Text = "DATOS BD WEB"
@@ -246,6 +252,7 @@ Public Class EMPHORAS
     Private Sub Form_Unload(Cancel As Integer)
         'por defecto, la base de datos de Personal
         sPER = "P_"
+        bWeb = False
     End Sub
 
     Private Sub bSalir_Click()
@@ -285,10 +292,6 @@ Public Class EMPHORAS
         cbMes_SelectedIndexChanged()
     End Sub
 
-    'Private Sub cbAño_Click()
-    '    cbMes_SelectedIndexChanged()
-    'End Sub
-
     Private Sub cbAño_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cbAño.SelectedIndexChanged
         cbMes_SelectedIndexChanged()
     End Sub
@@ -305,17 +308,6 @@ Public Class EMPHORAS
         cbMes_SelectedIndexChanged()
         cbId.Text = EmpId
     End Sub
-    'Private Sub cbEmp_Click()
-    '    LimpiarDatos()
-    '    EmpId = cbEmp.SelectedIndex
-
-    '    DatosOtroUsuario(EmpId, EmpNom, EmpCalAct, EmpVac, EmpUbi)
-
-    '    lbCal.Text = EmpCalAct
-    '    ListaProyectos()
-    '    cbMes_SelectedIndexChanged()
-    '    cbId.Text = EmpId
-    'End Sub
 
     Private Sub cbMes_SelectedIndexChanged() Handles cbMes.SelectedIndexChanged
         Dim fDia As Date
@@ -805,6 +797,27 @@ Public Class EMPHORAS
         Next
     End Sub
 
+    Private Sub cbProy_SelectedIndexChanged(sender As Object, e As EventArgs)
+        Dim fDia As Date
+
+        dMes = cbMes.SelectedIndex + 1
+        dAño = cbAño.Text
+        Dim año As Integer = Year(dia)
+        Using (con)
+
+            con.Open()
+
+            Dim com As IDbCommand = con.CreateCommand()
+
+            com.CommandText = "SELECT " & sPER & "HORAS_" & CStr(año) & ".*, PROYECTOS.Nombre_Proyecto " &
+          "FROM " & sPER & "HORAS_" & CStr(año) & " LEFT JOIN PROYECTOS ON " & sPER & "HORAS_" & CStr(año) & ".Proyecto = PROYECTOS.Código_Proyecto " &
+          "WHERE " & sPER & "HORAS_" & CStr(año) & ".Matricula=" & CStr(nId) &
+          " and fecha=" & FormatFecha(dia, True) & " order by proyectos.código_Proyecto;"
+
+            Dim dr As IDataReader = com.ExecuteReader()
+
+    End Sub
+
     Private Function Cargar_Horas_Dia(ByVal dia As Date, ByVal nId As Integer, ByVal col As Integer) As Boolean
 
         Dim sNom As String
@@ -826,19 +839,11 @@ Public Class EMPHORAS
             con.Open()
 
             Dim com As IDbCommand = con.CreateCommand()
-            ':TODO QUITAR
-            sPER = "P_"
-            bWeb = True
 
             com.CommandText = "SELECT " & sPER & "HORAS_" & CStr(año) & ".*, PROYECTOS.Nombre_Proyecto " &
           "FROM " & sPER & "HORAS_" & CStr(año) & " LEFT JOIN PROYECTOS ON " & sPER & "HORAS_" & CStr(año) & ".Proyecto = PROYECTOS.Código_Proyecto " &
           "WHERE " & sPER & "HORAS_" & CStr(año) & ".Matricula=" & CStr(nId) &
-          " and fecha=" & FormatFecha(dia, bWeb) & " order by proyectos.código_Proyecto;"
-
-            '  com.CommandText = "SELECT " & sPER & "HORAS_" & CStr(año) & ".*, PROYECTOS.Nombre_Proyecto " &
-            '"FROM " & sPER & "HORAS_" & CStr(año) & " LEFT JOIN PROYECTOS ON " & sPER & "HORAS_" & CStr(año) & ".Proyecto = PROYECTOS.Código_Proyecto " &
-            '"WHERE " & sPER & "HORAS_" & CStr(año) & ".Matricula=" & CStr(nId) &
-            '" and fecha='2018-01-02T00:00:00.000' order by proyectos.código_Proyecto;"
+          " and fecha=" & FormatFecha(dia, True) & " order by proyectos.código_Proyecto;"
 
             Dim dr As IDataReader = com.ExecuteReader()
             Dim vacio As Boolean = True
@@ -1558,6 +1563,8 @@ fallo:
         End While
 
     End Function
+
+
 
 
 
