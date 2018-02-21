@@ -22,13 +22,15 @@ Public Class EMPHORAS
 
     Dim txtDia(6) As TextBox
 
+    Dim BotonBloqueado As Boolean = False
 
     Public cbProy(13) As ComboBox
     'Public Sub CrearCbProy()
-    '    For n = 0 To 13
+    '    For n = 0 To NUMFIL
+
     '        cbProy(n) = New ComboBox()
-    '        'cbProy(n).Text = n
-    '        FlowLayoutPanel2.Controls.Add(cbProy(n))
+    '        cbProy(n).Text = n
+
     '    Next
     'End Sub
     Public Sub CreartxtDia()
@@ -64,6 +66,8 @@ Public Class EMPHORAS
             txtH1(c).BackColor = G_AMARILLO_CLARITO
             txtE1(c).BackColor = G_AMARILLO_CLARITO
             cbProy(c) = New ComboBox()
+            'AddHandler cbProy(c).SelectedIndexChanged, AddressOf cbProy_SelectedIndexChanged
+
             TableLayoutPanel1.Controls.Add(cbProy(c), 0, c)
         Next
     End Sub
@@ -232,7 +236,10 @@ Public Class EMPHORAS
         cbAño.Text = Year(Now)
         cbMes.SelectedIndex = Month(Now) - 1
 
-        If sPER = "" Then
+        If sPER = "" Then bWeb = True
+
+
+        If bWeb Then
             Me.BackColor = G_ROSA
             Picture2.BackColor = G_ROSA
             txBD.Text = "DATOS BD WEB"
@@ -246,6 +253,7 @@ Public Class EMPHORAS
     Private Sub Form_Unload(Cancel As Integer)
         'por defecto, la base de datos de Personal
         sPER = "P_"
+        bWeb = False
     End Sub
 
     Private Sub bSalir_Click()
@@ -285,10 +293,6 @@ Public Class EMPHORAS
         cbMes_SelectedIndexChanged()
     End Sub
 
-    'Private Sub cbAño_Click()
-    '    cbMes_SelectedIndexChanged()
-    'End Sub
-
     Private Sub cbAño_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cbAño.SelectedIndexChanged
         cbMes_SelectedIndexChanged()
     End Sub
@@ -305,17 +309,6 @@ Public Class EMPHORAS
         cbMes_SelectedIndexChanged()
         cbId.Text = EmpId
     End Sub
-    'Private Sub cbEmp_Click()
-    '    LimpiarDatos()
-    '    EmpId = cbEmp.SelectedIndex
-
-    '    DatosOtroUsuario(EmpId, EmpNom, EmpCalAct, EmpVac, EmpUbi)
-
-    '    lbCal.Text = EmpCalAct
-    '    ListaProyectos()
-    '    cbMes_SelectedIndexChanged()
-    '    cbId.Text = EmpId
-    'End Sub
 
     Private Sub cbMes_SelectedIndexChanged() Handles cbMes.SelectedIndexChanged
         Dim fDia As Date
@@ -343,7 +336,7 @@ Public Class EMPHORAS
         End If
 
         If bCerrado Then
-            '      MsgBox "EL MES DE " & UCase(MonthName(dMes)) & " ESTA CERRADO, NO SE PUEDEN REALIZAR MODIFICACIONES", vbInformation
+            lbMsg.Text() = "EL MES DE " & UCase(MonthName(dMes)) & " ESTA CERRADO, NO SE PUEDEN REALIZAR MODIFICACIONES"
             cmdGrabar.Enabled = False
             cmdMes.Enabled = False
             cmdAbrirMes.Visible = True
@@ -383,25 +376,25 @@ Public Class EMPHORAS
         Next
     End Sub
 
-    Private Sub cmdAbrirMes_Click()
-        cmdGrabar.Enabled = True
-        cmdAbrirMes.Visible = False
-        cmdCerrarMes.Visible = True
-        picBoton.BackColor = G_ROJO
-    End Sub
+    'Private Sub cmdAbrirMes_Click()
+    '    cmdGrabar.Enabled = True
+    '    cmdAbrirMes.Visible = False
+    '    cmdCerrarMes.Visible = True
+    '    picBoton.BackColor = G_ROJO
+    'End Sub
 
-    Private Sub cmdBloquear_Click()
-        If BloquearHorasMes(EmpId, dMes, dAño, True) Then
-            lbMsg.Text() = "HORAS BLOQUEADAS CORRECTAMENTE"
-            If txtDia(6).Text <> "" Then
-                SemanaAnterior(CDate((txtDia(6).Text)).AddDays(1))
-            Else
-                SemanaSiguiente(CDate((txtDia(6).Text)).AddDays(-1))
-            End If
-        Else
-            lbMsg.Text() = "NO SE HAN PODIDO BLOQUEAR LAS HORAS"
-        End If
-    End Sub
+    'Private Sub cmdBloquear_Click()
+    '    If BloquearHorasMes(EmpId, dMes, dAño, True) Then
+    '        lbMsg.Text() = "HORAS BLOQUEADAS CORRECTAMENTE"
+    '        If txtDia(6).Text <> "" Then
+    '            SemanaAnterior(CDate((txtDia(6).Text)).AddDays(1))
+    '        Else
+    '            SemanaSiguiente(CDate((txtDia(6).Text)).AddDays(-1))
+    '        End If
+    '    Else
+    '        lbMsg.Text() = "NO SE HAN PODIDO BLOQUEAR LAS HORAS"
+    '    End If
+    'End Sub
 
     Private Sub cmdCerrarMes_Click()
         cmdGrabar.Enabled = False
@@ -620,9 +613,9 @@ Public Class EMPHORAS
         End If
     End Sub
 
-    Private Sub cmdLimpiar_Click()
-        LimpiarDatos()
-    End Sub
+    'Private Sub cmdLimpiar_Click()
+    '    LimpiarDatos()
+    'End Sub
 
     Private Sub cmdListaHoras_Click()
         If cbId.Text <> "" Then
@@ -805,6 +798,60 @@ Public Class EMPHORAS
         Next
     End Sub
 
+    'Private Sub cbProy_SelectedIndexChanged(sender As Object, e As EventArgs)
+    '    Dim fDia As Date
+    '    fDia = DateTime.Now
+
+
+    '    dMes = cbMes.SelectedIndex + 1
+    '    dAño = cbAño.Text
+
+    '    Dim año As Integer = Year(fDia)
+    '    Dim nId As Integer = 1
+    '    Dim con As IDbConnection
+    '    con = New SqlConnection(gConexion)
+    '    sPER = "P_"
+    '    Using (con)
+
+    '        con.Open()
+
+    '        Dim com As IDbCommand = con.CreateCommand()
+
+    '        com.CommandText = "SELECT " & sPER & "HORAS_" & CStr(año) & ".*, PROYECTOS.Nombre_Proyecto " &
+    '      "FROM " & sPER & "HORAS_" & CStr(año) & " LEFT JOIN PROYECTOS ON " & sPER & "HORAS_" & CStr(año) & ".Proyecto = PROYECTOS.Código_Proyecto " &
+    '      "WHERE " & sPER & "HORAS_" & CStr(año) & ".Matricula=" & CStr(nId) &
+    '      " and fecha=" & FormatFecha(fDia, True) & " order by proyectos.código_Proyecto;"
+
+    '        Dim dr As IDataReader = com.ExecuteReader()
+
+    '        Dim dia As Integer
+    '        For i = dia To 7
+    '            txtDia(i - 1).Text = Format(fDia, "dd/MM/yy")
+    '            If EsLaboral(fDia, EmpCal, 3) Then
+    '                If Cargar_Horas_Dia(fDia, EmpId, i) Then
+    '                    txtDia(i - 1).ForeColor = G_NEGRO
+    '                    txtDia(i - 1).Font = New Font(txtDia(i - 1).Font, FontStyle.Regular)
+    '                Else
+    '                    txtDia(i - 1).ForeColor = G_ROJO
+    '                    txtDia(i - 1).Font = New Font(txtDia(i - 1).Font, FontStyle.Bold)
+    '                End If
+    '            Else
+    '                txtDia(i - 1).ForeColor = G_VERDE
+    '                txtDia(i - 1).Font = New Font(txtDia(i - 1).Font, FontStyle.Bold)
+    '            End If
+    '            fDia = DateAdd("d", 1, fDia)
+    '        Next
+
+
+
+    '        If dr.Read() Then
+
+    '        End If
+    '    End Using
+
+
+    'End Sub
+
     Private Function Cargar_Horas_Dia(ByVal dia As Date, ByVal nId As Integer, ByVal col As Integer) As Boolean
 
         Dim sNom As String
@@ -826,19 +873,11 @@ Public Class EMPHORAS
             con.Open()
 
             Dim com As IDbCommand = con.CreateCommand()
-            ':TODO QUITAR
-            sPER = "P_"
-            bWeb = True
 
             com.CommandText = "SELECT " & sPER & "HORAS_" & CStr(año) & ".*, PROYECTOS.Nombre_Proyecto " &
           "FROM " & sPER & "HORAS_" & CStr(año) & " LEFT JOIN PROYECTOS ON " & sPER & "HORAS_" & CStr(año) & ".Proyecto = PROYECTOS.Código_Proyecto " &
           "WHERE " & sPER & "HORAS_" & CStr(año) & ".Matricula=" & CStr(nId) &
-          " and fecha=" & FormatFecha(dia, bWeb) & " order by proyectos.código_Proyecto;"
-
-            '  com.CommandText = "SELECT " & sPER & "HORAS_" & CStr(año) & ".*, PROYECTOS.Nombre_Proyecto " &
-            '"FROM " & sPER & "HORAS_" & CStr(año) & " LEFT JOIN PROYECTOS ON " & sPER & "HORAS_" & CStr(año) & ".Proyecto = PROYECTOS.Código_Proyecto " &
-            '"WHERE " & sPER & "HORAS_" & CStr(año) & ".Matricula=" & CStr(nId) &
-            '" and fecha='2018-01-02T00:00:00.000' order by proyectos.código_Proyecto;"
+          " and fecha=" & FormatFecha(dia, True) & " order by proyectos.código_Proyecto;"
 
             Dim dr As IDataReader = com.ExecuteReader()
             Dim vacio As Boolean = True
@@ -860,7 +899,7 @@ Public Class EMPHORAS
                     If encontrado = -1 Then
                         'nuevo proyecto
                         fil = pro_act
-                        If IsDBNull(dr("Nombre_proyecto")) Then
+                        If IsNothing(dr("Nombre_proyecto")) Then
                             cbProyVal.Items.Add(dr("Proyecto"))
                             For i = 0 To NUMFIL
                                 cbProy(i).Items.Add(dr("Proyecto").ToString() & "| - FALTA EN BD")
@@ -878,7 +917,7 @@ Public Class EMPHORAS
                         fil = encontrado
                     End If
                     'cargar horas al proyecto y dia
-                    For Each oObj In Me.Controls
+                    For Each oObj In Me.TableLayoutPanel1.Controls
                         If Mid(oObj.Name, 1, 4) = "txtH" Then
                             If oObj.Name = "txtH" + CStr(col) And oObj.Index = fil Then
                                 Exit For
@@ -929,7 +968,7 @@ Public Class EMPHORAS
                             Exit For
                         End If
                     Next
-                    For Each oObj In Me.Controls
+                    For Each oObj In Me.TableLayoutPanel1.Controls
                         If Mid(oObj.Name, 1, 4) = "txtH" Then
                             If oObj.Name = "txtH" + CStr(col) And oObj.Index = pro_act Then
                                 Exit For
@@ -1042,7 +1081,7 @@ Public Class EMPHORAS
             End If
         Next
 
-        For Each oObj In Me.Controls
+        For Each oObj In Me.TableLayoutPanel1.Controls
 
 
             If Mid(oObj.Name, 1, 3) = "txt" Then
@@ -1127,6 +1166,8 @@ Public Class EMPHORAS
             While (dr.Read())
                 cbId.Text = dr("Matricula")
                 lbUbi.Text() = dr("Ubicacion")
+                ubi = dr("Ubicacion")
+                cal = dr("Calendario")
                 horasV = dr("horas_vacaciones")
                 DatosOtroUsuario = True
             End While
@@ -1137,30 +1178,26 @@ Public Class EMPHORAS
     End Function
 
     Public Function MesCerrado(mes As Integer, año As Integer) As Boolean
-        Dim rsA As New ADODB.Recordset
-        Dim sSql As String
-        Dim Count As Integer
-        sSql = "select * from control_mes where  mes=" & CStr(mes) & " and año=" & CStr(año)
-        Using connection As New SqlConnection(gConexion)
-            Dim command As New SqlCommand(sSql, connection)
-            command.Connection.Open()
-            command.ExecuteNonQuery()
-            Count = command.ExecuteScalar()
-            If (Count <> 0) Then
-                MesCerrado = True
-            Else
+
+        Dim con As IDbConnection
+        con = New SqlConnection(gConexion)
+
+        Using (con)
+
+            con.Open()
+
+            Dim com2 As IDbCommand = con.CreateCommand()
+
+            com2.CommandText = "select * from control_mes where  mes=" & CStr(mes) & " and año=" & CStr(año)
+
+            Dim dr As IDataReader = com2.ExecuteReader()
+
+            If Not dr.Read() Then
                 MesCerrado = False
+            Else
+                MesCerrado = True
             End If
         End Using
-        'rsA.CursorLocation = ADODB.CursorLocationEnum.adUseClient
-        'rsA.Open(sSql, dbHoras, ADODB.CursorTypeEnum.adOpenStatic)
-        'If rsA.RecordCount <> 0 Then
-        '    'MesCerrado = rsA(2)
-        '    MesCerrado = True
-        'Else
-        '    MesCerrado = False
-        'End If
-        'rsA.Close()
     End Function
 
     Public Function CalendarioEmpleadoAño(id As Integer, dAño As Integer) As String
@@ -1194,37 +1231,49 @@ Public Class EMPHORAS
     End Function
 
     Public Function MesCerradoWEB(mes As Integer, año As Integer, sUbi As String) As Boolean
-        'Dim rsA As New ADODB.Recordset
-        'Dim sSql As String
-        'Dim sMes As String
+        Dim num As Integer
+        Dim sMes As String
 
-        'If MesCerrado(mes, año) Then
-        '    MesCerradoWEB = True
-        '    Exit Function
-        'End If
+        If MesCerrado(mes, año) Then
+            MesCerradoWEB = True
+            Exit Function
+        End If
 
-        'sMes = "[" & CStr(mes) & "]"
-        'sSql = "select " & sMes & " from control_mes_ubi where ubicacion='" & sUbi & "' and año=" & CStr(año)
-        'rsA.CursorLocation = ADODB.CursorLocationEnum.adUseClient
-        'rsA.Open(sSql, dbHoras, ADODB.CursorTypeEnum.adOpenStatic)
-        'If rsA.RecordCount <> 0 Then
-        '    MesCerradoWEB = True
+        Dim con As IDbConnection
+        con = New SqlConnection(gConexion)
+        Using (con)
 
-        '    'MesCerradoWEB = rsA(0)
-        'Else
-        '    MesCerradoWEB = False
-        '    sSql = "insert into control_mes_ubi values ('" & sUbi & "'," & CStr(año) & ",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0)"
-        '    'dbHoras.ExecuteNonQuery  sSql
+            con.Open()
 
-        '    ' Using connection As New SqlConnection(connectionString)
-        '    Dim command As New SqlCommand(sSql)
-        '    command.Connection.Open()
-        '    command.ExecuteNonQuery()
+            Dim comWeb As IDbCommand = con.CreateCommand()
+            sMes = "[" & CStr(mes) & "]"
+            comWeb.CommandText = "select " & sMes & " from control_mes_ubi where ubicacion='" & sUbi & "' and año=" & CStr(año)
+
+            Dim dr As IDataReader = comWeb.ExecuteReader()
+
+            If Not dr.Read() Then
+                dr.Close()
+
+                MesCerradoWEB = False
+                Dim com2 As IDbCommand = con.CreateCommand()
+                com2.CommandText = "insert into control_mes_ubi values ('" & sUbi & "'," & CStr(año) & ",0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0)"
+                num = comWeb.ExecuteNonQuery()
+            Else
+                Do
+                    If dr(0) = 0 Then
+                        MesCerradoWEB = False
+                    End If
+
+                Loop While dr.Read()
+            End If
 
 
-        'End If
-        'rsA.Close()
+        End Using
     End Function
+
+
+
+
 
     'Private Sub EMPHORAS_Load(sender As Object, e As EventArgs)
     '    'TODO: esta línea de código carga datos en la tabla 'PersonBSEDataSet.EMPLEADOS' Puede moverla o quitarla según sea necesario.
@@ -1558,6 +1607,45 @@ fallo:
         End While
 
     End Function
+
+    Private Sub cmdBloquear_Click(sender As Object, e As EventArgs) Handles cmdBloquear.Click
+        If BotonBloqueado Then
+            cmdBloquear.Text = "Desbloquear Mes"
+
+            cmdGrabar.Enabled = True
+            cmdAbrirMes.Visible = False
+            cmdCerrarMes.Visible = True
+            'picBoton.BackColor = G_ROJO
+            BotonBloqueado = True
+        ElseIf Not BotonBloqueado Then
+            cmdBloquear.Text = "Bloquear Mes"
+            BotonBloqueado = False
+            If BloquearHorasMes(EmpId, dMes, dAño, True) Then
+                lbMsg.Text() = "HORAS BLOQUEADAS CORRECTAMENTE"
+                If txtDia(6).Text <> "" Then
+                    SemanaAnterior(CDate((txtDia(6).Text)).AddDays(1))
+                Else
+                    SemanaSiguiente(CDate((txtDia(6).Text)).AddDays(-1))
+                End If
+            Else
+                lbMsg.Text() = "NO SE HAN PODIDO BLOQUEAR LAS HORAS"
+            End If
+        End If
+    End Sub
+    Private Sub cmdLimpiar_Click(sender As Object, e As EventArgs) Handles cmdLimpiar.Click
+        LimpiarDatos()
+
+    End Sub
+    'Private Sub cmdDesb_Click(sender As Object, e As EventArgs) Handles cmdDesb.Click
+    '    cmdGrabar.Enabled = True
+    '    cmdAbrirMes.Visible = False
+    '    cmdCerrarMes.Visible = True
+    '    picBoton.BackColor = G_ROJO
+    'End Sub
+
+
+
+
 
 
 
