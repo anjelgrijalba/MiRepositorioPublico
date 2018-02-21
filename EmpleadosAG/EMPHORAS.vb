@@ -65,7 +65,7 @@ Public Class EMPHORAS
             txtH1(c).BackColor = G_AMARILLO_CLARITO
             txtE1(c).BackColor = G_AMARILLO_CLARITO
             cbProy(c) = New ComboBox()
-            AddHandler cbProy(c).SelectedIndexChanged, AddressOf cbProy_SelectedIndexChanged
+            'AddHandler cbProy(c).SelectedIndexChanged, AddressOf cbProy_SelectedIndexChanged
 
             TableLayoutPanel1.Controls.Add(cbProy(c), 0, c)
         Next
@@ -797,26 +797,59 @@ Public Class EMPHORAS
         Next
     End Sub
 
-    Private Sub cbProy_SelectedIndexChanged(sender As Object, e As EventArgs)
-        Dim fDia As Date
+    'Private Sub cbProy_SelectedIndexChanged(sender As Object, e As EventArgs)
+    '    Dim fDia As Date
+    '    fDia = DateTime.Now
 
-        dMes = cbMes.SelectedIndex + 1
-        dAño = cbAño.Text
-        Dim año As Integer = Year(dia)
-        Using (con)
 
-            con.Open()
+    '    dMes = cbMes.SelectedIndex + 1
+    '    dAño = cbAño.Text
 
-            Dim com As IDbCommand = con.CreateCommand()
+    '    Dim año As Integer = Year(fDia)
+    '    Dim nId As Integer = 1
+    '    Dim con As IDbConnection
+    '    con = New SqlConnection(gConexion)
+    '    sPER = "P_"
+    '    Using (con)
 
-            com.CommandText = "SELECT " & sPER & "HORAS_" & CStr(año) & ".*, PROYECTOS.Nombre_Proyecto " &
-          "FROM " & sPER & "HORAS_" & CStr(año) & " LEFT JOIN PROYECTOS ON " & sPER & "HORAS_" & CStr(año) & ".Proyecto = PROYECTOS.Código_Proyecto " &
-          "WHERE " & sPER & "HORAS_" & CStr(año) & ".Matricula=" & CStr(nId) &
-          " and fecha=" & FormatFecha(dia, True) & " order by proyectos.código_Proyecto;"
+    '        con.Open()
 
-            Dim dr As IDataReader = com.ExecuteReader()
+    '        Dim com As IDbCommand = con.CreateCommand()
 
-    End Sub
+    '        com.CommandText = "SELECT " & sPER & "HORAS_" & CStr(año) & ".*, PROYECTOS.Nombre_Proyecto " &
+    '      "FROM " & sPER & "HORAS_" & CStr(año) & " LEFT JOIN PROYECTOS ON " & sPER & "HORAS_" & CStr(año) & ".Proyecto = PROYECTOS.Código_Proyecto " &
+    '      "WHERE " & sPER & "HORAS_" & CStr(año) & ".Matricula=" & CStr(nId) &
+    '      " and fecha=" & FormatFecha(fDia, True) & " order by proyectos.código_Proyecto;"
+
+    '        Dim dr As IDataReader = com.ExecuteReader()
+
+    '        Dim dia As Integer
+    '        For i = dia To 7
+    '            txtDia(i - 1).Text = Format(fDia, "dd/MM/yy")
+    '            If EsLaboral(fDia, EmpCal, 3) Then
+    '                If Cargar_Horas_Dia(fDia, EmpId, i) Then
+    '                    txtDia(i - 1).ForeColor = G_NEGRO
+    '                    txtDia(i - 1).Font = New Font(txtDia(i - 1).Font, FontStyle.Regular)
+    '                Else
+    '                    txtDia(i - 1).ForeColor = G_ROJO
+    '                    txtDia(i - 1).Font = New Font(txtDia(i - 1).Font, FontStyle.Bold)
+    '                End If
+    '            Else
+    '                txtDia(i - 1).ForeColor = G_VERDE
+    '                txtDia(i - 1).Font = New Font(txtDia(i - 1).Font, FontStyle.Bold)
+    '            End If
+    '            fDia = DateAdd("d", 1, fDia)
+    '        Next
+
+
+
+    '        If dr.Read() Then
+
+    '        End If
+    '    End Using
+
+
+    'End Sub
 
     Private Function Cargar_Horas_Dia(ByVal dia As Date, ByVal nId As Integer, ByVal col As Integer) As Boolean
 
@@ -865,7 +898,7 @@ Public Class EMPHORAS
                     If encontrado = -1 Then
                         'nuevo proyecto
                         fil = pro_act
-                        If IsDBNull(dr("Nombre_proyecto")) Then
+                        If IsNothing(dr("Nombre_proyecto")) Then
                             cbProyVal.Items.Add(dr("Proyecto"))
                             For i = 0 To NUMFIL
                                 cbProy(i).Items.Add(dr("Proyecto").ToString() & "| - FALTA EN BD")
@@ -883,7 +916,7 @@ Public Class EMPHORAS
                         fil = encontrado
                     End If
                     'cargar horas al proyecto y dia
-                    For Each oObj In Me.Controls
+                    For Each oObj In Me.TableLayoutPanel1.Controls
                         If Mid(oObj.Name, 1, 4) = "txtH" Then
                             If oObj.Name = "txtH" + CStr(col) And oObj.Index = fil Then
                                 Exit For
@@ -934,7 +967,7 @@ Public Class EMPHORAS
                             Exit For
                         End If
                     Next
-                    For Each oObj In Me.Controls
+                    For Each oObj In Me.TableLayoutPanel1.Controls
                         If Mid(oObj.Name, 1, 4) = "txtH" Then
                             If oObj.Name = "txtH" + CStr(col) And oObj.Index = pro_act Then
                                 Exit For
@@ -1047,7 +1080,7 @@ Public Class EMPHORAS
             End If
         Next
 
-        For Each oObj In Me.Controls
+        For Each oObj In Me.TableLayoutPanel1.Controls
 
 
             If Mid(oObj.Name, 1, 3) = "txt" Then
